@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import tamir.exception.BlankExpressionException;
 import tamir.exception.InvalidTokenException;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static tamir.token.Tokenizer.parseToken;
 import static tamir.token.Tokenizer.parseTokens;
@@ -164,5 +166,13 @@ class TokenizerTest {
 		assertThrows(InvalidTokenException.class, () -> parseToken("/=/"));
 		assertThrows(InvalidTokenException.class, () -> parseToken("x="));
 		assertThrows(InvalidTokenException.class, () -> parseToken("1+2"));
+	}
+
+	@Test
+	void whenParsingValidExpressionToTokens_thenTokensAreOrderedByOriginalExpressionOrder() {
+		List<Token> expectedTokens = List.of(new VariableToken("x"),
+				new AssignmentToken(),
+				new IntegerToken(1));
+		assertEquals(expectedTokens, parseTokens("x = 1"));
 	}
 }
