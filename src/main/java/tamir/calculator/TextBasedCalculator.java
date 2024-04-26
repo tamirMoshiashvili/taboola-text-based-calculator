@@ -1,13 +1,12 @@
 package tamir.calculator;
 
-import tamir.token.Token;
+import tamir.token.ParsedAssignmentExpression;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import static tamir.token.Tokenizer.parseTokens;
+import static tamir.token.AssignmentExpressionTokenizer.parseAssignmentExpressionIntoTokens;
 
 public class TextBasedCalculator {
 
@@ -16,7 +15,7 @@ public class TextBasedCalculator {
 		Map<String, Integer> variableToValues = new HashMap<>();
 		String line;
 		while (!(line = scanner.nextLine()).isBlank()) {
-			List<Token> tokens = parseTokens(line);
+			ParsedAssignmentExpression parsedAssignmentExpression = parseAssignmentExpressionIntoTokens(line);
 		}
 
 		return variableToValues;

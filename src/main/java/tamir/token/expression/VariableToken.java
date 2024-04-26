@@ -1,4 +1,4 @@
-package tamir.token;
+package tamir.token.expression;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

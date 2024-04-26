@@ -1,4 +1,4 @@
-package tamir.token;
+package tamir.token.expression;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class PreIncrementToken implements Token {
+public class PostIncrementToken implements Token {
 
 	private final String variableName;
 }
