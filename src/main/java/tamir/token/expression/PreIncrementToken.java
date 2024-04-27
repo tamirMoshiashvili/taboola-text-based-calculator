@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class PreIncrementToken implements Token {
+public class PreIncrementToken implements UnaryOperatorToken {
 
 	private final String variableName;
 }
