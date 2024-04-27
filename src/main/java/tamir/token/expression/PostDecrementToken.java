@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class PostDecrementToken implements Token {
+public class PostDecrementToken implements UnaryOperatorToken {
 
 	private final String variableName;
 }
