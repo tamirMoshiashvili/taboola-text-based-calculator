@@ -1,14 +1,12 @@
 package tamir.calculator;
 
 import tamir.parser.AbstractSyntaxTreeNode;
-import tamir.token.ParsedAssignmentExpression;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import static tamir.parser.AbstractSyntaxTreeParser.parseTokensIntoAbstractSyntaxTree;
-import static tamir.token.AssignmentExpressionTokenizer.parseAssignmentExpressionIntoTokens;
+import static tamir.parser.AbstractSyntaxTreeParser.parseExpressionIntoAbstractSyntaxTree;
 
 public class TextBasedCalculator {
 
@@ -17,9 +15,8 @@ public class TextBasedCalculator {
 		Map<String, Integer> variableToValues = new HashMap<>();
 		String line;
 		while (!(line = scanner.nextLine()).isBlank()) {
-			ParsedAssignmentExpression parsedAssignmentExpression = parseAssignmentExpressionIntoTokens(line);
-			AbstractSyntaxTreeNode abstractSyntaxTreeRootNode = parseTokensIntoAbstractSyntaxTree(parsedAssignmentExpression.getExpressionTokens());
-			int value = abstractSyntaxTreeRootNode.interpret();
+			AbstractSyntaxTreeNode abstractSyntaxTreeRootNode = parseExpressionIntoAbstractSyntaxTree(line);
+			abstractSyntaxTreeRootNode.interpret();
 		}
 
 		return variableToValues;

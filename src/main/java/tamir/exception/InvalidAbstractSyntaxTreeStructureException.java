@@ -1,20 +1,20 @@
 package tamir.exception;
 
 import tamir.parser.AbstractSyntaxTreeNode;
-import tamir.token.expression.Token;
+import tamir.token.Operator;
 
 import java.util.Stack;
 
 public class InvalidAbstractSyntaxTreeStructureException extends RuntimeException {
 
-	public InvalidAbstractSyntaxTreeStructureException(Stack<Token> operators,
+	public InvalidAbstractSyntaxTreeStructureException(Stack<Operator> operators,
 													   Stack<AbstractSyntaxTreeNode> expressions,
-													   Token invalidToken) {
+													   String invalidToken) {
 		super(String.format("Token: %s creates invalid structure of abstract-syntax-tree for operators: %s and expressions: %s",
 				invalidToken, operators, expressions));
 	}
 
-	public InvalidAbstractSyntaxTreeStructureException(Stack<Token> operators, Stack<AbstractSyntaxTreeNode> expressions) {
+	public InvalidAbstractSyntaxTreeStructureException(Stack<Operator> operators, Stack<AbstractSyntaxTreeNode> expressions) {
 		super(String.format("Invalid structure of abstract-syntax-tree for operators: %s and expressions: %s",
 				operators, expressions));
 	}

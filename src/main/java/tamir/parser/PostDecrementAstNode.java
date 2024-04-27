@@ -3,7 +3,7 @@ package tamir.parser;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class VariableAstNode implements AbstractSyntaxTreeNode {
+public class PostDecrementAstNode implements AbstractSyntaxTreeNode {
 
 	private final String variableName;
 }
