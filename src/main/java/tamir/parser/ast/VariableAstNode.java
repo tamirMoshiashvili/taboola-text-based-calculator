@@ -1,9 +1,9 @@
-package tamir.parser;
+package tamir.parser.ast;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class PreIncrementAstNode implements AbstractSyntaxTreeNode {
+public class VariableAstNode implements AbstractSyntaxTreeNode {
 
 	private final String variableName;
 }

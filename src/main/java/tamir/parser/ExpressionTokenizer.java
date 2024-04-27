@@ -1,11 +1,11 @@
-package tamir.token;
+package tamir.parser;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Character.isDigit;
 import static java.util.stream.Collectors.toList;
-import static tamir.token.Operator.*;
+import static tamir.parser.Operator.*;
 
 public class ExpressionTokenizer {
 	private static final String TOKEN_SEPARATOR = " ";

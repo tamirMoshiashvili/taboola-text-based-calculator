@@ -1,4 +1,4 @@
-package tamir.token;
+package tamir.parser;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

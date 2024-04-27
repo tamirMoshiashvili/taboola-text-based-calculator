@@ -1,6 +1,6 @@
 package tamir.calculator;
 
-import tamir.parser.AbstractSyntaxTreeNode;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 import java.util.HashMap;
 import java.util.Map;

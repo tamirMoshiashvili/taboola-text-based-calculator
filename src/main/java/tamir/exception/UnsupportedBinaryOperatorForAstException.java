@@ -1,6 +1,6 @@
 package tamir.exception;
 
-import tamir.token.Operator;
+import tamir.parser.Operator;
 
 public class UnsupportedBinaryOperatorForAstException extends RuntimeException {
 

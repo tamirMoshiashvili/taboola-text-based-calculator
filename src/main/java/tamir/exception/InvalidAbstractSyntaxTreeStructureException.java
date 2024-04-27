@@ -1,7 +1,7 @@
 package tamir.exception;
 
-import tamir.parser.AbstractSyntaxTreeNode;
-import tamir.token.Operator;
+import tamir.parser.Operator;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 import java.util.Stack;
 

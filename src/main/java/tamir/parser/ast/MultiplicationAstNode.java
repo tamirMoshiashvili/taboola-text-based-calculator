@@ -1,4 +1,4 @@
-package tamir.parser;
+package tamir.parser.ast;
 
 public class MultiplicationAstNode extends BinaryOperatorAstNode {
 

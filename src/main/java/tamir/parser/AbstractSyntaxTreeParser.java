@@ -3,14 +3,14 @@ package tamir.parser;
 import tamir.exception.BlankExpressionException;
 import tamir.exception.InvalidAbstractSyntaxTreeStructureException;
 import tamir.exception.UnsupportedBinaryOperatorForAstException;
-import tamir.token.Operator;
+import tamir.parser.ast.*;
 
 import java.util.List;
 import java.util.Stack;
 
 import static java.lang.Integer.parseInt;
-import static tamir.token.ExpressionTokenizer.*;
-import static tamir.token.Operator.isBinaryOperator;
+import static tamir.parser.ExpressionTokenizer.*;
+import static tamir.parser.Operator.isBinaryOperator;
 
 public class AbstractSyntaxTreeParser {
 
