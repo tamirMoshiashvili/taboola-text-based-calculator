@@ -135,6 +135,7 @@ public class AbstractSyntaxTreeParser {
 		}
 
 		private AbstractSyntaxTreeNode popBinaryOperatorAstNode() {
+			validateBinaryOperatorHasTwoExpressionsToPop();
 			AbstractSyntaxTreeNode rightExpression = expressions.pop();
 			AbstractSyntaxTreeNode leftExpression = expressions.pop();
 
@@ -151,6 +152,11 @@ public class AbstractSyntaxTreeParser {
 				default:
 					throw new UnsupportedBinaryOperatorForAstException(topBinaryOperator);
 			}
+		}
+
+		private void validateBinaryOperatorHasTwoExpressionsToPop() {
+			if (expressions.size() < 2)
+				throw new InvalidAbstractSyntaxTreeStructureException(binaryOperators, expressions);
 		}
 	}
 }

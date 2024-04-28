@@ -1,8 +1,10 @@
 package tamir.parser.assignment;
 
+import lombok.EqualsAndHashCode;
 import tamir.calculator.CalculatorContext;
 import tamir.parser.ast.AbstractSyntaxTreeNode;
 
+@EqualsAndHashCode(callSuper = true)
 public class SubtractionAssignmentRootNode extends AssignmentRootNode {
 
 	public SubtractionAssignmentRootNode(String assignedVariableName, AbstractSyntaxTreeNode valueExpression) {

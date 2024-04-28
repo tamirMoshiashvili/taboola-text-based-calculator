@@ -1,7 +1,9 @@
 package tamir.parser.ast;
 
+import lombok.EqualsAndHashCode;
 import tamir.calculator.CalculatorContext;
 
+@EqualsAndHashCode(callSuper = true)
 public class SubtractionAstNode extends BinaryOperatorAstNode {
 
 	public SubtractionAstNode(AbstractSyntaxTreeNode left, AbstractSyntaxTreeNode right) {

@@ -1,9 +1,11 @@
 package tamir.parser.ast;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import tamir.calculator.CalculatorContext;
 
 @AllArgsConstructor
+@EqualsAndHashCode
 public class PreIncrementAstNode implements AbstractSyntaxTreeNode {
 
 	private final String variableName;

@@ -28,19 +28,27 @@ class ExpressionTokenizer {
 	}
 
 	static boolean isPreIncrement(String token) {
-		return token.startsWith(INCREMENT.getToken()) && isVariable(getVariableNameOfPreUnaryOperatorToken(token));
+		return token.startsWith(INCREMENT.getToken())
+				&& token.length() > getUnaryOperatorLength()
+				&& isVariable(getVariableNameOfPreUnaryOperatorToken(token));
 	}
 
 	static boolean isPostIncrement(String token) {
-		return token.endsWith(INCREMENT.getToken()) && isVariable(getVariableNameOfPostUnaryOperatorToken(token));
+		return token.endsWith(INCREMENT.getToken())
+				&& token.length() > getUnaryOperatorLength()
+				&& isVariable(getVariableNameOfPostUnaryOperatorToken(token));
 	}
 
 	static boolean isPreDecrement(String token) {
-		return token.startsWith(DECREMENT.getToken()) && isVariable(getVariableNameOfPreUnaryOperatorToken(token));
+		return token.startsWith(DECREMENT.getToken())
+				&& token.length() > getUnaryOperatorLength()
+				&& isVariable(getVariableNameOfPreUnaryOperatorToken(token));
 	}
 
 	static boolean isPostDecrement(String token) {
-		return token.endsWith(DECREMENT.getToken()) && isVariable(getVariableNameOfPostUnaryOperatorToken(token));
+		return token.endsWith(DECREMENT.getToken())
+				&& token.length() > getUnaryOperatorLength()
+				&& isVariable(getVariableNameOfPostUnaryOperatorToken(token));
 	}
 
 	static String getVariableNameOfPreUnaryOperatorToken(String token) {
