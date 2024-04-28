@@ -1,10 +1,13 @@
-package tamir.parser.ast;
+package tamir.parser.assignment;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import tamir.calculator.CalculatorContext;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @AllArgsConstructor
-public class AssignmentAstNode {
+@EqualsAndHashCode
+public class AssignmentRootNode {
 
 	protected final String assignedVariableName;
 	protected final AbstractSyntaxTreeNode valueExpression;

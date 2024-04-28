@@ -1,6 +1,6 @@
 package tamir.calculator;
 
-import tamir.parser.ast.AssignmentAstNode;
+import tamir.parser.assignment.AssignmentRootNode;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -14,7 +14,7 @@ public class TextBasedCalculator {
 		CalculatorContext context = new CalculatorContext();
 		String line;
 		while (!(line = scanner.nextLine()).isBlank()) {
-			AssignmentAstNode abstractSyntaxTreeRootNode = parseExpressionIntoAbstractSyntaxTree(line);
+			AssignmentRootNode abstractSyntaxTreeRootNode = parseExpressionIntoAbstractSyntaxTree(line);
 			abstractSyntaxTreeRootNode.execute(context);
 		}
 
