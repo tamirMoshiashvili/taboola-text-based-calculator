@@ -81,7 +81,7 @@ public class AbstractSyntaxTreeParser {
 			else if (isPostDecrement(token))
 				expressions.push(new PostDecrementAstNode(getVariableNameOfPostUnaryOperatorToken(token)));
 			else if (isBinaryOperator(token)) {
-				BinaryOperator binaryOperator = BinaryOperator.getFromToken(token);
+				BinaryOperator binaryOperator = BinaryOperator.fromToken(token);
 				createExpressionsFromBinaryOperatorsWithEqualOrHigherPrecedence(binaryOperator);
 				binaryOperators.push(binaryOperator);
 			} else throw new InvalidAbstractSyntaxTreeStructureException(binaryOperators, expressions, token);

@@ -28,7 +28,7 @@ public enum BinaryOperator {
 		return BINARY_OPERATORS.contains(token);
 	}
 
-	public static BinaryOperator getFromToken(String token) {
+	public static BinaryOperator fromToken(String token) {
 		return Optional.ofNullable(TOKEN_TO_OPERATOR.get(token))
 				.orElseThrow(() -> new InvalidBinaryOperatorException(token));
 	}
