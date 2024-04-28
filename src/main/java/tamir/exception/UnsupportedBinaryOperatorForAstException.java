@@ -1,10 +1,10 @@
 package tamir.exception;
 
-import tamir.parser.Operator;
+import tamir.parser.operator.BinaryOperator;
 
 public class UnsupportedBinaryOperatorForAstException extends RuntimeException {
 
-	public UnsupportedBinaryOperatorForAstException(Operator unsupportedOperator) {
-		super("Binary operator is not supported for abstract-syntax-tree parsing: " + unsupportedOperator.getToken());
+	public UnsupportedBinaryOperatorForAstException(BinaryOperator unsupportedBinaryOperator) {
+		super("Binary operator is not supported for abstract-syntax-tree parsing: " + unsupportedBinaryOperator.getToken());
 	}
 }

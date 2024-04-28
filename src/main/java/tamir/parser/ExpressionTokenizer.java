@@ -5,7 +5,7 @@ import java.util.List;
 
 import static java.lang.Character.isDigit;
 import static java.util.stream.Collectors.toList;
-import static tamir.parser.Operator.*;
+import static tamir.parser.operator.UnaryOperator.*;
 
 public class ExpressionTokenizer {
 	private static final String TOKEN_SEPARATOR = " ";

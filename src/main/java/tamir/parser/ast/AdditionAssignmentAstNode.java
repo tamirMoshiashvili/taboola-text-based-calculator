@@ -1,8 +1,8 @@
 package tamir.parser.ast;
 
-public class AdditionAssignmentAstNode extends BinaryOperatorAstNode {
+public class AdditionAssignmentAstNode extends AssignmentAstNode {
 
-	public AdditionAssignmentAstNode(AbstractSyntaxTreeNode left, AbstractSyntaxTreeNode right) {
-		super(left, right);
+	public AdditionAssignmentAstNode(String assignedVariableName, AbstractSyntaxTreeNode valueExpression) {
+		super(assignedVariableName, valueExpression);
 	}
 }

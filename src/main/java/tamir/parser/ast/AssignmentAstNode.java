@@ -1,8 +1,10 @@
 package tamir.parser.ast;
 
-public class AssignmentAstNode extends BinaryOperatorAstNode {
+import lombok.AllArgsConstructor;
 
-	public AssignmentAstNode(AbstractSyntaxTreeNode left, AbstractSyntaxTreeNode right) {
-		super(left, right);
-	}
+@AllArgsConstructor
+public class AssignmentAstNode implements AbstractSyntaxTreeNode {
+
+	private final String assignedVariableName;
+	private final AbstractSyntaxTreeNode valueExpression;
 }
