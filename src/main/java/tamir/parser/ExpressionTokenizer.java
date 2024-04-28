@@ -8,6 +8,7 @@ import static java.util.stream.Collectors.toList;
 import static tamir.parser.operator.UnaryOperator.*;
 
 class ExpressionTokenizer {
+
 	private static final String TOKEN_SEPARATOR = " ";
 
 	static List<String> splitIntoTokens(String expression) {
