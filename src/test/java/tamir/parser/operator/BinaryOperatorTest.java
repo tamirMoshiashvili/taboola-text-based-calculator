@@ -34,28 +34,28 @@ class BinaryOperatorTest {
 
 	@Test
 	void whenTokenIsNotBinaryOperator_thenGetFromTokenThrowsInvalidBinaryOperatorException() {
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("++"));
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("--"));
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("**"));
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("//"));
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("^"));
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("1"));
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("~"));
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("!"));
-		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.getFromToken("%"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("++"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("--"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("**"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("//"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("^"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("1"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("~"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("!"));
+		assertThrows(InvalidBinaryOperatorException.class, () -> BinaryOperator.fromToken("%"));
 	}
 
 	@Test
 	void whenTokenIsBinaryOperator_thenGetFromTokenReturnBinaryOperator() {
-		assertEquals(ADDITION, BinaryOperator.getFromToken("+"));
-		assertEquals(SUBTRACTION, BinaryOperator.getFromToken("-"));
-		assertEquals(MULTIPLICATION, BinaryOperator.getFromToken("*"));
-		assertEquals(DIVISION, BinaryOperator.getFromToken("/"));
+		assertEquals(ADDITION, BinaryOperator.fromToken("+"));
+		assertEquals(SUBTRACTION, BinaryOperator.fromToken("-"));
+		assertEquals(MULTIPLICATION, BinaryOperator.fromToken("*"));
+		assertEquals(DIVISION, BinaryOperator.fromToken("/"));
 	}
 
 	@Test
 	void whenTokenIsBinaryOperator_thenGetFromTokenDoesNotThrowException() {
 		Arrays.asList(BinaryOperator.values())
-				.forEach(binaryOperator -> assertDoesNotThrow(() -> BinaryOperator.getFromToken(binaryOperator.getToken())));
+				.forEach(binaryOperator -> assertDoesNotThrow(() -> BinaryOperator.fromToken(binaryOperator.getToken())));
 	}
 }
