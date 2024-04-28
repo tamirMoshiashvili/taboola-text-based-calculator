@@ -10,7 +10,7 @@ import tamir.parser.ast.VariableAstNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class DivisionAssignmentAstNodeTest {
+class MultiplicationAssignmentRootNodeTest {
 
 	private IntegerAstNode integer;
 	private VariableAstNode variableX;
@@ -18,21 +18,21 @@ class DivisionAssignmentAstNodeTest {
 
 	@BeforeEach
 	void setup() {
-		integer = new IntegerAstNode(2);
+		integer = new IntegerAstNode(5);
 		variableX = new VariableAstNode("x");
 		context = new CalculatorContext();
-		context.put("x", 4);
+		context.put("x", 3);
 	}
 
 	@Test
-	void whenDivisionAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new DivisionAssignmentAstNode("x", integer).execute(context);
-		assertEquals(2, variableX.interpret(context));
+	void whenMultiplicationAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
+		new MultiplicationAssignmentRootNode("x", integer).execute(context);
+		assertEquals(15, variableX.interpret(context));
 	}
 
 	@Test
-	void whenDivisionAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
+	void whenMultiplicationAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new DivisionAssignmentAstNode("unknown", integer).execute(context));
+				() -> new MultiplicationAssignmentRootNode("unknown", integer).execute(context));
 	}
 }

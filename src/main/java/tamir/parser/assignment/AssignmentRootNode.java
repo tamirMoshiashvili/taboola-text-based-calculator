@@ -5,7 +5,7 @@ import tamir.calculator.CalculatorContext;
 import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @AllArgsConstructor
-public class AssignmentAstNode {
+public class AssignmentRootNode {
 
 	protected final String assignedVariableName;
 	protected final AbstractSyntaxTreeNode valueExpression;

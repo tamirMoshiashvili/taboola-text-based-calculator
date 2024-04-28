@@ -3,9 +3,9 @@ package tamir.parser.assignment;
 import tamir.calculator.CalculatorContext;
 import tamir.parser.ast.AbstractSyntaxTreeNode;
 
-public class AdditionAssignmentAstNode extends AssignmentAstNode {
+public class AdditionAssignmentRootNode extends AssignmentRootNode {
 
-	public AdditionAssignmentAstNode(String assignedVariableName, AbstractSyntaxTreeNode valueExpression) {
+	public AdditionAssignmentRootNode(String assignedVariableName, AbstractSyntaxTreeNode valueExpression) {
 		super(assignedVariableName, valueExpression);
 	}
 

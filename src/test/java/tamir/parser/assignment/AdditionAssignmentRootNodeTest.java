@@ -10,7 +10,7 @@ import tamir.parser.ast.VariableAstNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class AdditionAssignmentAstNodeTest {
+class AdditionAssignmentRootNodeTest {
 
 	private IntegerAstNode integer;
 	private VariableAstNode variableX;
@@ -26,13 +26,13 @@ class AdditionAssignmentAstNodeTest {
 
 	@Test
 	void whenAdditionAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new AdditionAssignmentAstNode("x", integer).execute(context);
+		new AdditionAssignmentRootNode("x", integer).execute(context);
 		assertEquals(4, variableX.interpret(context));
 	}
 
 	@Test
 	void whenAdditionAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new AdditionAssignmentAstNode("unknown", integer).execute(context));
+				() -> new AdditionAssignmentRootNode("unknown", integer).execute(context));
 	}
 }

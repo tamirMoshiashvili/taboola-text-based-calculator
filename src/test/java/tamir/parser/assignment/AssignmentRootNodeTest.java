@@ -9,7 +9,7 @@ import tamir.parser.ast.VariableAstNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class AssignmentAstNodeTest {
+class AssignmentRootNodeTest {
 
 	private IntegerAstNode integer;
 	private VariableAstNode variableX;
@@ -27,22 +27,22 @@ class AssignmentAstNodeTest {
 	void whenAssigningNewVariable_thenVariableIsBeingAddedToTheContext() {
 		CalculatorContext context = new CalculatorContext();
 		assertTrue(context.getVariableToValue().isEmpty());
-		new AssignmentAstNode("x", integer).execute(context);
+		new AssignmentRootNode("x", integer).execute(context);
 		assertEquals(integer.interpret(context), variableX.interpret(context));
 	}
 
 	@Test
 	void whenAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new AssignmentAstNode("x", integer).execute(context);
+		new AssignmentRootNode("x", integer).execute(context);
 		assertEquals(integer.interpret(context), variableX.interpret(context));
 	}
 
 	@Test
 	void whenAssigningVariable_thenInterpretDoesNotChangeOtherVariablesInTheContext() {
 		VariableAstNode newVariable = new VariableAstNode("new");
-		new AssignmentAstNode("new", integer).execute(context);
+		new AssignmentRootNode("new", integer).execute(context);
 		int value = newVariable.interpret(context);
-		new AssignmentAstNode("x", integer).execute(context);
+		new AssignmentRootNode("x", integer).execute(context);
 		assertEquals(value, newVariable.interpret(context));
 	}
 }

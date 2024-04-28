@@ -20,7 +20,7 @@ public class AbstractSyntaxTreeParser {
 	private static final long VARIABLE_AND_ASSIGNMENT_TOKENS_SIZE = 2;
 	private static final int MIN_NUM_TOKENS_OF_ASSIGNMENT_EXPRESSION = 3;
 
-	public static AssignmentAstNode parseExpressionIntoAbstractSyntaxTree(String expression) {
+	public static AssignmentRootNode parseExpressionIntoAbstractSyntaxTree(String expression) {
 		validateExpressionIsNotBlank(expression);
 		List<String> tokens = splitIntoTokens(expression);
 		validateNumberOfTokens(tokens);
@@ -38,7 +38,7 @@ public class AbstractSyntaxTreeParser {
 			throw new InvalidNumTokensInAssignmentExpressionException(tokens);
 	}
 
-	private static AssignmentAstNode parseAbstractSyntaxTree(List<String> tokens) {
+	private static AssignmentRootNode parseAbstractSyntaxTree(List<String> tokens) {
 		AbstractSyntaxTreeBuilder astBuilder = new AbstractSyntaxTreeBuilder();
 		astBuilder.addAssignedVariable(tokens.get(VARIABLE_TOKEN_INDEX));
 		astBuilder.addAssignment(tokens.get(ASSIGNMENT_TOKEN_INDEX));
@@ -88,20 +88,20 @@ public class AbstractSyntaxTreeParser {
 			} else throw new InvalidAbstractSyntaxTreeStructureException(binaryOperators, expressions, token);
 		}
 
-		AssignmentAstNode getAbstractSyntaxTreeAssignmentRootNode() {
+		AssignmentRootNode getAbstractSyntaxTreeAssignmentRootNode() {
 			AbstractSyntaxTreeNode valueExpression = getValueExpression();
 
 			switch (assignmentOperator) {
 				case ASSIGNMENT:
-					return new AssignmentAstNode(assignedVariableName, valueExpression);
+					return new AssignmentRootNode(assignedVariableName, valueExpression);
 				case ADDITION_ASSIGNMENT:
-					return new AdditionAssignmentAstNode(assignedVariableName, valueExpression);
+					return new AdditionAssignmentRootNode(assignedVariableName, valueExpression);
 				case SUBTRACTION_ASSIGNMENT:
-					return new SubtractionAssignmentAstNode(assignedVariableName, valueExpression);
+					return new SubtractionAssignmentRootNode(assignedVariableName, valueExpression);
 				case MULTIPLICATION_ASSIGNMENT:
-					return new MultiplicationAssignmentAstNode(assignedVariableName, valueExpression);
+					return new MultiplicationAssignmentRootNode(assignedVariableName, valueExpression);
 				case DIVISION_ASSIGNMENT:
-					return new DivisionAssignmentAstNode(assignedVariableName, valueExpression);
+					return new DivisionAssignmentRootNode(assignedVariableName, valueExpression);
 				default:
 					throw new UnsupportedAssignmentOperatorForAstException(assignmentOperator);
 			}

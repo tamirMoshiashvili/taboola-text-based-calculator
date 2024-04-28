@@ -10,7 +10,7 @@ import tamir.parser.ast.VariableAstNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MultiplicationAssignmentAstNodeTest {
+class SubtractionAssignmentRootNodeTest {
 
 	private IntegerAstNode integer;
 	private VariableAstNode variableX;
@@ -18,21 +18,21 @@ class MultiplicationAssignmentAstNodeTest {
 
 	@BeforeEach
 	void setup() {
-		integer = new IntegerAstNode(5);
+		integer = new IntegerAstNode(1);
 		variableX = new VariableAstNode("x");
 		context = new CalculatorContext();
 		context.put("x", 3);
 	}
 
 	@Test
-	void whenMultiplicationAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new MultiplicationAssignmentAstNode("x", integer).execute(context);
-		assertEquals(15, variableX.interpret(context));
+	void whenSubtractionAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
+		new SubtractionAssignmentRootNode("x", integer).execute(context);
+		assertEquals(2, variableX.interpret(context));
 	}
 
 	@Test
-	void whenMultiplicationAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
+	void whenSubtractionAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new MultiplicationAssignmentAstNode("unknown", integer).execute(context));
+				() -> new SubtractionAssignmentRootNode("unknown", integer).execute(context));
 	}
 }
