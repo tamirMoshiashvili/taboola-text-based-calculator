@@ -1,6 +1,7 @@
-package tamir.parser.ast;
+package tamir.parser.assignment;
 
 import tamir.calculator.CalculatorContext;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 public class AdditionAssignmentAstNode extends AssignmentAstNode {
 

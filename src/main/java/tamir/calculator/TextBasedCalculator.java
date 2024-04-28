@@ -1,6 +1,6 @@
 package tamir.calculator;
 
-import tamir.parser.ast.AssignmentAstNode;
+import tamir.parser.assignment.AssignmentAstNode;
 
 import java.util.Map;
 import java.util.Scanner;

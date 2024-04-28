@@ -1,6 +1,7 @@
 package tamir.parser;
 
 import tamir.exception.*;
+import tamir.parser.assignment.*;
 import tamir.parser.ast.*;
 import tamir.parser.operator.AssignmentOperator;
 import tamir.parser.operator.BinaryOperator;

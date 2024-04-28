@@ -1,7 +1,8 @@
-package tamir.parser.ast;
+package tamir.parser.assignment;
 
 import lombok.AllArgsConstructor;
 import tamir.calculator.CalculatorContext;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @AllArgsConstructor
 public class AssignmentAstNode {
