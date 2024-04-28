@@ -1,10 +1,9 @@
-package tamir.parser;
+package tamir.parser.ast;
 
 import lombok.AllArgsConstructor;
-import tamir.token.expression.Token;
 
 @AllArgsConstructor
 public class VariableAstNode implements AbstractSyntaxTreeNode {
 
-	private final Token variableName;
+	private final String variableName;
 }

@@ -1,10 +1,9 @@
-package tamir.parser;
+package tamir.parser.ast;
 
 import lombok.AllArgsConstructor;
-import tamir.token.expression.Token;
 
 @AllArgsConstructor
 public class IntegerAstNode implements AbstractSyntaxTreeNode {
 
-	private final Token value;
+	private final int value;
 }
