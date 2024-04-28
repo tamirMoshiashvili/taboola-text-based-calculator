@@ -10,6 +10,7 @@ public class TextBasedCalculatorApplication {
 
 	public static void main(String[] args) {
 		System.out.println("--- Text Based Calculator Application ---");
+		System.out.println("Enter expressions line by line, enter blank line for exit");
 		Scanner scanner = new Scanner(System.in);
 		Map<String, Integer> variableToValues = runTextBasedCalculator(scanner);
 		System.out.println("(" + getVariableToValue(variableToValues) + ")");
