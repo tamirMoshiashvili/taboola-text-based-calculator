@@ -23,7 +23,7 @@ public class CalculatorContext {
 				.orElseThrow(() -> new UnknownVariableException(variable));
 	}
 
-	Map<String, Integer> getVariableToValue() {
+	public Map<String, Integer> getVariableToValue() {
 		return new HashMap<>(variableToValue);
 	}
 }
