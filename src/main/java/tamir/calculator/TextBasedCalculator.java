@@ -10,7 +10,6 @@ import static tamir.parser.AbstractSyntaxTreeParser.parseExpressionIntoAbstractS
 public class TextBasedCalculator {
 
 	public static Map<String, Integer> runTextBasedCalculator(Scanner scanner) {
-		System.out.println("Enter expressions line by line, enter blank line for exit");
 		CalculatorContext context = new CalculatorContext();
 		String line;
 		while (!(line = scanner.nextLine()).isBlank()) {
