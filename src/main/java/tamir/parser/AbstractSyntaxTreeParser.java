@@ -82,7 +82,7 @@ public class AbstractSyntaxTreeParser {
 				expressions.push(new PostDecrementAstNode(getVariableNameOfPostUnaryOperatorToken(token)));
 			else if (isBinaryOperator(token)) {
 				BinaryOperator binaryOperator = BinaryOperator.getFromToken(token);
-				popBinaryOperatorsWithHigherPrecedence(binaryOperator);
+				createExpressionsFromBinaryOperatorsWithEqualOrHigherPrecedence(binaryOperator);
 				binaryOperators.push(binaryOperator);
 			} else throw new InvalidAbstractSyntaxTreeStructureException(binaryOperators, expressions, token);
 		}
@@ -106,14 +106,31 @@ public class AbstractSyntaxTreeParser {
 			}
 		}
 
-		private void popBinaryOperatorsWithHigherPrecedence(BinaryOperator binaryOperator) {
+		private void createExpressionsFromBinaryOperatorsWithEqualOrHigherPrecedence(BinaryOperator binaryOperator) {
 			while (!binaryOperators.isEmpty() && isOperatorOfLowerPrecedenceThanTopOperator(binaryOperator)) {
 				expressions.push(popBinaryOperatorAstNode());
 			}
 		}
 
 		private boolean isOperatorOfLowerPrecedenceThanTopOperator(BinaryOperator binaryOperator) {
-			return binaryOperators.peek().getPrecedence() >= binaryOperator.getPrecedence();
+			return binaryOperator.getPrecedence() < binaryOperators.peek().getPrecedence();
+		}
+
+		private AbstractSyntaxTreeNode getValueExpression() {
+			createExpressions();
+			validateFinalValueExpressionIsSingleNode();
+			return expressions.pop();
+		}
+
+		private void createExpressions() {
+			while (!binaryOperators.isEmpty()) {
+				expressions.push(popBinaryOperatorAstNode());
+			}
+		}
+
+		private void validateFinalValueExpressionIsSingleNode() {
+			if (expressions.size() != 1)
+				throw new InvalidAbstractSyntaxTreeStructureException(binaryOperators, expressions);
 		}
 
 		private AbstractSyntaxTreeNode popBinaryOperatorAstNode() {
@@ -133,12 +150,6 @@ public class AbstractSyntaxTreeParser {
 				default:
 					throw new UnsupportedBinaryOperatorForAstException(topBinaryOperator);
 			}
-		}
-
-		private AbstractSyntaxTreeNode getValueExpression() {
-			if (expressions.size() != 1)
-				throw new InvalidAbstractSyntaxTreeStructureException(binaryOperators, expressions);
-			return expressions.pop();
 		}
 	}
 }

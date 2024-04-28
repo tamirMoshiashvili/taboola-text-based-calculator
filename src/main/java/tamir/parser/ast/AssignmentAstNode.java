@@ -1,10 +1,15 @@
 package tamir.parser.ast;
 
 import lombok.AllArgsConstructor;
+import tamir.calculator.CalculatorContext;
 
 @AllArgsConstructor
-public class AssignmentAstNode implements AbstractSyntaxTreeNode {
+public class AssignmentAstNode {
 
-	private final String assignedVariableName;
-	private final AbstractSyntaxTreeNode valueExpression;
+	protected final String assignedVariableName;
+	protected final AbstractSyntaxTreeNode valueExpression;
+
+	public void execute(CalculatorContext context) {
+		context.put(assignedVariableName, valueExpression.interpret(context));
+	}
 }
