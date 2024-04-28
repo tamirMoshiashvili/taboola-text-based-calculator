@@ -1,8 +1,8 @@
 package tamir.parser.ast;
 
+import tamir.calculator.CalculatorContext;
+
 public interface AbstractSyntaxTreeNode {
 
-	default int interpret() {
-		return 0;
-	}
+	int interpret(CalculatorContext context);
 }

@@ -5,6 +5,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public abstract class BinaryOperatorAstNode implements AbstractSyntaxTreeNode {
 
-	private final AbstractSyntaxTreeNode left;
-	private final AbstractSyntaxTreeNode right;
+	protected final AbstractSyntaxTreeNode left;
+	protected final AbstractSyntaxTreeNode right;
 }
