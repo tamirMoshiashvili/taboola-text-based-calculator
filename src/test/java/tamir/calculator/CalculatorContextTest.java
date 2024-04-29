@@ -6,8 +6,7 @@ import tamir.exception.UnknownVariableException;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorContextTest {
 
@@ -21,15 +20,17 @@ class CalculatorContextTest {
 
 	@Test
 	void whenPutNewVariableToContext_thenVariableWasAdded() {
+		assertFalse(context.getVariableToValue().containsKey("x"));
 		context.put("x", 1);
 		assertEquals(1, context.get("x"));
 	}
 
 	@Test
 	void whenPutValueToExistingVariable_thenVariableValueHasBeenUpdated() {
-		assertEquals(10, context.get("count"));
-		context.put("count", 4);
-		assertEquals(4, context.get("count"));
+		int countValueBeforeChange = context.get("count");
+		int updatedValue = countValueBeforeChange + 1;
+		context.put("count", updatedValue);
+		assertEquals(updatedValue, context.get("count"));
 	}
 
 	@Test
@@ -39,9 +40,24 @@ class CalculatorContextTest {
 
 	@Test
 	void whenAlteringVariableToValueMap_thenContextNotBeingChanged() {
-		assertEquals(10, context.get("count"));
+		int countValueBeforeChange = context.get("count");
 		Map<String, Integer> variableToValue = context.getVariableToValue();
-		variableToValue.put("count", 1);
-		assertEquals(10, context.get("count"));
+		variableToValue.put("count", countValueBeforeChange + 1);
+		assertEquals(countValueBeforeChange, context.get("count"));
+	}
+
+	@Test
+	void testVariableNameIsCaseSensitive() {
+		assertEquals(1, context.getVariableToValue().size());
+		String lowercaseVariableName = context.getVariableToValue().keySet().iterator().next();
+		int lowercaseVariableValue = context.get(lowercaseVariableName);
+		String uppercaseVariableName = lowercaseVariableName.toUpperCase();
+		int uppercaseVariableValue = lowercaseVariableValue + 1;
+		assertNotEquals(lowercaseVariableValue, uppercaseVariableValue);
+		context.put(uppercaseVariableName, uppercaseVariableValue);
+
+		Map<String, Integer> expectedVariableToValueAfterChange = Map.of(lowercaseVariableName, lowercaseVariableValue,
+				uppercaseVariableName, uppercaseVariableValue);
+		assertEquals(expectedVariableToValueAfterChange, context.getVariableToValue());
 	}
 }

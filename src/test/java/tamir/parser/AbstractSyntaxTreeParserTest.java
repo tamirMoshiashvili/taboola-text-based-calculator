@@ -6,6 +6,7 @@ import tamir.parser.assignment.*;
 import tamir.parser.ast.AdditionAstNode;
 import tamir.parser.ast.IntegerAstNode;
 import tamir.parser.ast.MultiplicationAstNode;
+import tamir.parser.ast.SubtractionAstNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -94,15 +95,23 @@ class AbstractSyntaxTreeParserTest {
 	@Test
 	void whenOperatorIsMissingAnOperand_thenParseExpressionThrowsInvalidAbstractSyntaxTreeStructureException() {
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
+				() -> parseExpressionIntoAbstractSyntaxTree("x = *"));
+		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
 				() -> parseExpressionIntoAbstractSyntaxTree("x = 1 +"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
 				() -> parseExpressionIntoAbstractSyntaxTree("x = 1 * 2 / "));
+	}
+
+	@Test
+	void whenValueExpressionContainsMultipleOperandsWithoutOperator_thenParseExpressionThrowsInvalidAbstractSyntaxTreeStructureException() {
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
 				() -> parseExpressionIntoAbstractSyntaxTree("item += x y"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
 				() -> parseExpressionIntoAbstractSyntaxTree("x = 1 t 2"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
 				() -> parseExpressionIntoAbstractSyntaxTree("x = a 1 t"));
+		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
+				() -> parseExpressionIntoAbstractSyntaxTree("x = 1 1 1"));
 	}
 
 	@Test
@@ -113,5 +122,15 @@ class AbstractSyntaxTreeParserTest {
 		AssignmentRootNode expectedRootNode = new AssignmentRootNode("x", valueExpression);
 
 		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x = 1 + 2 * 3"));
+	}
+
+	@Test
+	void whenExpressionContainsOperatorsWithSamePrecedence_thenParseExpressionFromLeftToRight() {
+		SubtractionAstNode left = new SubtractionAstNode(new IntegerAstNode(1), new IntegerAstNode(2));
+		IntegerAstNode right = new IntegerAstNode(3);
+		SubtractionAstNode valueExpression = new SubtractionAstNode(left, right);
+		AssignmentRootNode expectedRootNode = new AssignmentRootNode("x", valueExpression);
+
+		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x = 1 - 2 - 3"));
 	}
 }

@@ -7,32 +7,46 @@ import tamir.exception.UnknownVariableException;
 import tamir.parser.ast.IntegerAstNode;
 import tamir.parser.ast.VariableAstNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AdditionAssignmentRootNodeTest {
 
-	private IntegerAstNode integer;
+	private IntegerAstNode one;
 	private VariableAstNode variableX;
 	private CalculatorContext context;
 
 	@BeforeEach
 	void setup() {
-		integer = new IntegerAstNode(1);
+		one = new IntegerAstNode(1);
 		variableX = new VariableAstNode("x");
 		context = new CalculatorContext();
 		context.put("x", 3);
 	}
 
 	@Test
-	void whenAdditionAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new AdditionAssignmentRootNode("x", integer).execute(context);
+	void whenAdditionAssigningExistingVariable_thenVariableValueIsBeingUpdatedInTheContext() {
+		new AdditionAssignmentRootNode("x", one).execute(context);
 		assertEquals(4, variableX.interpret(context));
 	}
 
 	@Test
 	void whenAdditionAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new AdditionAssignmentRootNode("unknown", integer).execute(context));
+				() -> new AdditionAssignmentRootNode("unknown", one).execute(context));
+	}
+
+	@Test
+	void whenAdditionAssigningZeroToExistingVariable_thenVariableValueDoesNotChange() {
+		int xValueBeforeChange = variableX.interpret(context);
+		new AdditionAssignmentRootNode("x", new IntegerAstNode(0)).execute(context);
+		assertEquals(xValueBeforeChange, variableX.interpret(context));
+	}
+
+	@Test
+	void whenAdditionAssigningNegativeInteger_thenVariableValueHasBeenDecreased() {
+		int xValueBeforeChange = variableX.interpret(context);
+		IntegerAstNode negativeInteger = new IntegerAstNode(-1);
+		new AdditionAssignmentRootNode("x", negativeInteger).execute(context);
+		assertTrue(variableX.interpret(context) < xValueBeforeChange);
 	}
 }

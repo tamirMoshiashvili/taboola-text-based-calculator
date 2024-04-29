@@ -7,32 +7,60 @@ import tamir.exception.UnknownVariableException;
 import tamir.parser.ast.IntegerAstNode;
 import tamir.parser.ast.VariableAstNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MultiplicationAssignmentRootNodeTest {
 
-	private IntegerAstNode integer;
+	private IntegerAstNode five;
 	private VariableAstNode variableX;
 	private CalculatorContext context;
 
 	@BeforeEach
 	void setup() {
-		integer = new IntegerAstNode(5);
+		five = new IntegerAstNode(5);
 		variableX = new VariableAstNode("x");
 		context = new CalculatorContext();
 		context.put("x", 3);
 	}
 
 	@Test
-	void whenMultiplicationAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new MultiplicationAssignmentRootNode("x", integer).execute(context);
+	void whenMultiplicationAssigningExistingVariable_thenVariableValueIsBeingUpdatedInTheContext() {
+		new MultiplicationAssignmentRootNode("x", five).execute(context);
 		assertEquals(15, variableX.interpret(context));
 	}
 
 	@Test
 	void whenMultiplicationAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new MultiplicationAssignmentRootNode("unknown", integer).execute(context));
+				() -> new MultiplicationAssignmentRootNode("unknown", five).execute(context));
+	}
+
+	@Test
+	void whenMultiplicationAssigningByOne_thenVariableValueDoesNotChange() {
+		int xValueBeforeChange = variableX.interpret(context);
+		new MultiplicationAssignmentRootNode("x", new IntegerAstNode(1)).execute(context);
+		assertEquals(xValueBeforeChange, variableX.interpret(context));
+	}
+
+	@Test
+	void whenMultiplicationAssigningByZero_thenVariableIsSetToZero() {
+		new MultiplicationAssignmentRootNode("x", new IntegerAstNode(0)).execute(context);
+		assertEquals(0, variableX.interpret(context));
+	}
+
+	@Test
+	void whenMultiplicationAssigningPositiveVariableByNegativeInteger_thenVariableValueIsNegative() {
+		assertTrue(variableX.interpret(context) > 0);
+		IntegerAstNode negativeInteger = new IntegerAstNode(-1);
+		new MultiplicationAssignmentRootNode("x", negativeInteger).execute(context);
+		assertTrue(variableX.interpret(context) < 0);
+	}
+
+	@Test
+	void whenMultiplicationAssigningNegativeVariableByNegativeInteger_thenVariableValueIsPositive() {
+		context.put("y", -1);
+		IntegerAstNode negativeInteger = new IntegerAstNode(-1);
+		new MultiplicationAssignmentRootNode("y", negativeInteger).execute(context);
+		assertTrue(variableX.interpret(context) > 0);
 	}
 }

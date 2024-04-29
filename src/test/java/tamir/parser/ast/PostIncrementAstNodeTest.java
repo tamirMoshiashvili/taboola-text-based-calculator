@@ -3,8 +3,10 @@ package tamir.parser.ast;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tamir.calculator.CalculatorContext;
+import tamir.exception.UnknownVariableException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PostIncrementAstNodeTest {
 
@@ -22,12 +24,17 @@ class PostIncrementAstNodeTest {
 	}
 
 	@Test
+	void whenPostIncrementUnknownVariable_thenInterpretThrowsUnknownVariableException() {
+		assertThrows(UnknownVariableException.class, () -> new PostIncrementAstNode("unknown").interpret(context));
+	}
+
+	@Test
 	void whenPostIncrementOfVariable_thenInterpretReturnsValueBeforeIncrement() {
 		assertEquals(2, new PostIncrementAstNode("x").interpret(context));
 	}
 
 	@Test
-	void whenPostIncrementOfVariable_thenInterpretUpdatesVariableInContextToPlusOne() {
+	void whenPostIncrementOfVariable_thenInterpretUpdatesVariableInContextByPlusOne() {
 		int xValueBeforePostIncrement = variableX.interpret(context);
 		new PostIncrementAstNode("x").interpret(context);
 		assertEquals(xValueBeforePostIncrement + 1, variableX.interpret(context));

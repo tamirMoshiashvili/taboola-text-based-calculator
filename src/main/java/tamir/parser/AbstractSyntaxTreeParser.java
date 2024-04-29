@@ -83,7 +83,7 @@ public class AbstractSyntaxTreeParser {
 				expressions.push(new PostDecrementAstNode(getVariableNameOfPostUnaryOperatorToken(token)));
 			else if (isBinaryOperator(token)) {
 				BinaryOperator binaryOperator = BinaryOperator.fromToken(token);
-				createExpressionsFromBinaryOperatorsWithEqualOrHigherPrecedence(binaryOperator);
+				createExpressionsFromBinaryOperatorsWithHigherPrecedence(binaryOperator);
 				binaryOperators.push(binaryOperator);
 			} else throw new InvalidAbstractSyntaxTreeStructureException(binaryOperators, expressions, token);
 		}
@@ -107,14 +107,14 @@ public class AbstractSyntaxTreeParser {
 			}
 		}
 
-		private void createExpressionsFromBinaryOperatorsWithEqualOrHigherPrecedence(BinaryOperator binaryOperator) {
-			while (!binaryOperators.isEmpty() && isOperatorOfLowerPrecedenceThanTopOperator(binaryOperator)) {
+		private void createExpressionsFromBinaryOperatorsWithHigherPrecedence(BinaryOperator binaryOperator) {
+			while (!binaryOperators.isEmpty() && isOperatorOfLowerOrEqualPrecedenceThanTopOperator(binaryOperator)) {
 				expressions.push(popBinaryOperatorAstNode());
 			}
 		}
 
-		private boolean isOperatorOfLowerPrecedenceThanTopOperator(BinaryOperator binaryOperator) {
-			return binaryOperator.getPrecedence() < binaryOperators.peek().getPrecedence();
+		private boolean isOperatorOfLowerOrEqualPrecedenceThanTopOperator(BinaryOperator binaryOperator) {
+			return binaryOperator.getPrecedence() <= binaryOperators.peek().getPrecedence();
 		}
 
 		private AbstractSyntaxTreeNode getValueExpression() {

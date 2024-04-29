@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
@@ -40,7 +39,7 @@ public enum BinaryOperator {
 	private static final Map<String, BinaryOperator> TOKEN_TO_OPERATOR = createTokenToOperatorMap();
 
 	private static Set<String> getAllBinaryOperatorTokens() {
-		return Stream.of(ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION)
+		return Arrays.stream(BinaryOperator.values())
 				.map(BinaryOperator::getToken)
 				.collect(toSet());
 	}

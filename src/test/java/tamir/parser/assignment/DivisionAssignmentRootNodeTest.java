@@ -7,32 +7,60 @@ import tamir.exception.UnknownVariableException;
 import tamir.parser.ast.IntegerAstNode;
 import tamir.parser.ast.VariableAstNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DivisionAssignmentRootNodeTest {
 
-	private IntegerAstNode integer;
+	private IntegerAstNode two;
 	private VariableAstNode variableX;
 	private CalculatorContext context;
 
 	@BeforeEach
 	void setup() {
-		integer = new IntegerAstNode(2);
+		two = new IntegerAstNode(2);
 		variableX = new VariableAstNode("x");
 		context = new CalculatorContext();
 		context.put("x", 4);
 	}
 
 	@Test
-	void whenDivisionAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new DivisionAssignmentRootNode("x", integer).execute(context);
+	void whenDivisionAssigningExistingVariable_thenVariableValueIsBeingUpdatedInTheContext() {
+		new DivisionAssignmentRootNode("x", two).execute(context);
 		assertEquals(2, variableX.interpret(context));
 	}
 
 	@Test
 	void whenDivisionAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new DivisionAssignmentRootNode("unknown", integer).execute(context));
+				() -> new DivisionAssignmentRootNode("unknown", two).execute(context));
+	}
+
+	@Test
+	void whenDivisionAssigningByOne_thenVariableValueDoesNotChange() {
+		int xValueBeforeChange = variableX.interpret(context);
+		new DivisionAssignmentRootNode("x", new IntegerAstNode(1)).execute(context);
+		assertEquals(xValueBeforeChange, variableX.interpret(context));
+	}
+
+	@Test
+	void whenDivisionAssigningByZero_thenThrowsArithmeticException() {
+		assertThrows(ArithmeticException.class,
+				() -> new DivisionAssignmentRootNode("x", new IntegerAstNode(0)).execute(context));
+	}
+
+	@Test
+	void whenDivisionAssigningPositiveVariableByNegativeInteger_thenVariableValueIsNegative() {
+		assertTrue(variableX.interpret(context) > 0);
+		IntegerAstNode negativeInteger = new IntegerAstNode(-1);
+		new DivisionAssignmentRootNode("x", negativeInteger).execute(context);
+		assertTrue(variableX.interpret(context) < 0);
+	}
+
+	@Test
+	void whenDivisionAssigningNegativeVariableByNegativeInteger_thenVariableValueIsPositive() {
+		context.put("y", -1);
+		IntegerAstNode negativeInteger = new IntegerAstNode(-1);
+		new DivisionAssignmentRootNode("y", negativeInteger).execute(context);
+		assertTrue(variableX.interpret(context) > 0);
 	}
 }

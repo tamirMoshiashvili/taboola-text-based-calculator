@@ -5,19 +5,20 @@ import org.junit.jupiter.api.Test;
 import tamir.calculator.CalculatorContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SubtractionAstNodeTest {
 
-	private IntegerAstNode integer1;
-	private IntegerAstNode integer2;
+	private IntegerAstNode one;
+	private IntegerAstNode two;
 	private VariableAstNode variableX;
 	private VariableAstNode variableY;
 	private CalculatorContext context;
 
 	@BeforeEach
 	void setup() {
-		integer1 = new IntegerAstNode(1);
-		integer2 = new IntegerAstNode(2);
+		one = new IntegerAstNode(1);
+		two = new IntegerAstNode(2);
 		variableX = new VariableAstNode("x");
 		variableY = new VariableAstNode("y");
 		context = new CalculatorContext();
@@ -32,16 +33,35 @@ class SubtractionAstNodeTest {
 
 	@Test
 	void whenSubtractingTwoIntegers_thenInterpretToDifferenceOfValues() {
-		assertEquals(-1, new SubtractionAstNode(integer1, integer2).interpret(context));
+		assertEquals(-1, new SubtractionAstNode(one, two).interpret(context));
 	}
 
 	@Test
 	void whenSubtractingIntegerAndVariable_thenInterpretToDifferenceOfValues() {
-		assertEquals(-2, new SubtractionAstNode(integer1, variableX).interpret(context));
+		assertEquals(-2, new SubtractionAstNode(one, variableX).interpret(context));
 	}
 
 	@Test
 	void whenSubtractingVariableAndInteger_thenInterpretToDifferenceOfValues() {
-		assertEquals(3, new SubtractionAstNode(variableY, integer2).interpret(context));
+		assertEquals(3, new SubtractionAstNode(variableY, two).interpret(context));
+	}
+
+	@Test
+	void whenSubtractingZeroFromValue_thenInterpretReturnValueWithoutChange() {
+		IntegerAstNode zero = new IntegerAstNode(0);
+		assertEquals(1, new SubtractionAstNode(one, zero).interpret(context));
+	}
+
+	@Test
+	void whenSubtractingPositiveNumberFromValue_thenValueHasBeenDecreased() {
+		int xValueBeforeChange = variableX.interpret(context);
+		assertTrue(xValueBeforeChange > new SubtractionAstNode(variableX, one).interpret(context));
+	}
+
+	@Test
+	void whenSubtractingNegativeNumberFromValue_thenValueHasBeenIncreased() {
+		int xValueBeforeChange = variableX.interpret(context);
+		IntegerAstNode minusOne = new IntegerAstNode(-1);
+		assertTrue(xValueBeforeChange < new SubtractionAstNode(variableX, minusOne).interpret(context));
 	}
 }
