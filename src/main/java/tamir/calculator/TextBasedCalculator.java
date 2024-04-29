@@ -11,12 +11,20 @@ public class TextBasedCalculator {
 
 	public static Map<String, Integer> runTextBasedCalculator(Scanner scanner) {
 		CalculatorContext context = new CalculatorContext();
-		String line;
-		while (!(line = scanner.nextLine()).isBlank()) {
-			AssignmentRootNode abstractSyntaxTreeRootNode = parseExpressionIntoAbstractSyntaxTree(line);
-			abstractSyntaxTreeRootNode.execute(context);
+		String expression;
+		while (!(expression = scanner.nextLine()).isBlank()) {
+			processExpression(context, expression);
 		}
 
 		return context.getVariableToValue();
+	}
+
+	private static void processExpression(CalculatorContext context, String expression) {
+		try {
+			AssignmentRootNode assignmentRootNode = parseExpressionIntoAbstractSyntaxTree(expression);
+			assignmentRootNode.execute(context);
+		} catch (Exception e) {
+			System.out.println("Failed processing expression: " + e.getMessage());
+		}
 	}
 }

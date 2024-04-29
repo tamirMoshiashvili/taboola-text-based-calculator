@@ -1,13 +1,12 @@
 package tamir.calculator;
 
 import org.junit.jupiter.api.Test;
-import tamir.exception.UnknownVariableException;
 
 import java.util.Map;
 import java.util.Scanner;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static tamir.calculator.TextBasedCalculator.runTextBasedCalculator;
 
 class TextBasedCalculatorTest {
@@ -32,11 +31,6 @@ class TextBasedCalculatorTest {
 	}
 
 	@Test
-	void whenUsingUnknownVariable_thenThrowsUnknownVariableException() {
-		assertThrows(UnknownVariableException.class, () -> runTextBasedCalculator(new Scanner("x = unknown\n\n")));
-	}
-
-	@Test
 	void whenEachExpressionSetsNewVariable_thenNumVariablesEqualsNumExpressions() {
 		String input = String.join("\n",
 				"a = 1",
@@ -45,5 +39,10 @@ class TextBasedCalculatorTest {
 				"\n");
 		Map<String, Integer> variableToValue = runTextBasedCalculator(new Scanner(input));
 		assertEquals(3, variableToValue.size());
+	}
+
+	@Test
+	void whenExpressionIsInvalid_thenNoException() {
+		assertDoesNotThrow(() -> runTextBasedCalculator(new Scanner("x = unknown\n\n")));
 	}
 }
