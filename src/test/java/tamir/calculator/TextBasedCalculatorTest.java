@@ -35,4 +35,15 @@ class TextBasedCalculatorTest {
 	void whenUsingUnknownVariable_thenThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class, () -> runTextBasedCalculator(new Scanner("x = unknown\n\n")));
 	}
+
+	@Test
+	void whenEachExpressionSetsNewVariable_thenNumVariablesEqualsNumExpressions() {
+		String input = String.join("\n",
+				"a = 1",
+				"b = 2",
+				"c = 3",
+				"\n");
+		Map<String, Integer> variableToValue = runTextBasedCalculator(new Scanner(input));
+		assertEquals(3, variableToValue.size());
+	}
 }

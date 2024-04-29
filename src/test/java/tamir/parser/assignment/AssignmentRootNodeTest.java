@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AssignmentRootNodeTest {
 
-	private IntegerAstNode integer;
+	private IntegerAstNode one;
 	private VariableAstNode variableX;
 	private CalculatorContext context;
 
 	@BeforeEach
 	void setup() {
-		integer = new IntegerAstNode(1);
+		one = new IntegerAstNode(1);
 		variableX = new VariableAstNode("x");
 		context = new CalculatorContext();
 		context.put("x", 3);
@@ -27,22 +27,21 @@ class AssignmentRootNodeTest {
 	void whenAssigningNewVariable_thenVariableIsBeingAddedToTheContext() {
 		CalculatorContext context = new CalculatorContext();
 		assertTrue(context.getVariableToValue().isEmpty());
-		new AssignmentRootNode("x", integer).execute(context);
-		assertEquals(integer.interpret(context), variableX.interpret(context));
+		new AssignmentRootNode("x", one).execute(context);
+		assertEquals(one.interpret(context), variableX.interpret(context));
 	}
 
 	@Test
-	void whenAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new AssignmentRootNode("x", integer).execute(context);
-		assertEquals(integer.interpret(context), variableX.interpret(context));
+	void whenAssigningExistingVariable_thenVariableValueIsBeingUpdatedInTheContext() {
+		assertTrue(context.getVariableToValue().containsKey("x"));
+		new AssignmentRootNode("x", one).execute(context);
+		assertEquals(one.interpret(context), variableX.interpret(context));
 	}
 
 	@Test
 	void whenAssigningVariable_thenInterpretDoesNotChangeOtherVariablesInTheContext() {
-		VariableAstNode newVariable = new VariableAstNode("new");
-		new AssignmentRootNode("new", integer).execute(context);
-		int value = newVariable.interpret(context);
-		new AssignmentRootNode("x", integer).execute(context);
-		assertEquals(value, newVariable.interpret(context));
+		int xValueBeforeOperation = variableX.interpret(context);
+		new AssignmentRootNode("new", one).execute(context);
+		assertEquals(xValueBeforeOperation, variableX.interpret(context));
 	}
 }

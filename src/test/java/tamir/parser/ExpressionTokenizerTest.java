@@ -48,7 +48,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenStartsWithLetterAndContainsLetterAndOrDigits_thenIsVariableReturnTrue() {
+	void whenTokenStartsWithLetterAndContainsLettersAndOrDigits_thenIsVariableReturnTrue() {
 		assertTrue(isVariable("x"));
 		assertTrue(isVariable("x1"));
 		assertTrue(isVariable("xyz"));
@@ -104,7 +104,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenStartsWithDoublePlusAndContainsValidVariable_thenIsPreIncrementReturnsTrue() {
+	void whenTokenStartsWithDoublePlusAndContainsValidVariableName_thenIsPreIncrementReturnsTrue() {
 		assertTrue(isPreIncrement("++x"));
 		assertTrue(isPreIncrement("++a"));
 		assertTrue(isPreIncrement("++item"));
@@ -112,7 +112,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenStartsWithDoublePlusButDoesNotContainValidVariable_thenIsPreIncrementReturnsFalse() {
+	void whenTokenStartsWithDoublePlusButDoesNotContainValidVariableName_thenIsPreIncrementReturnsFalse() {
 		assertFalse(isPreIncrement("++"));
 		assertFalse(isPreIncrement("+++"));
 		assertFalse(isPreIncrement("++1"));
@@ -127,7 +127,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenEndsWithDoublePlusAndContainsValidVariable_thenIsPostIncrementReturnsTrue() {
+	void whenTokenEndsWithDoublePlusAndContainsValidVariableName_thenIsPostIncrementReturnsTrue() {
 		assertTrue(isPostIncrement("x++"));
 		assertTrue(isPostIncrement("a++"));
 		assertTrue(isPostIncrement("item++"));
@@ -135,7 +135,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenEndsWithDoublePlusButDoesNotContainValidVariable_thenIsPostIncrementReturnsFalse() {
+	void whenTokenEndsWithDoublePlusButDoesNotContainValidVariableName_thenIsPostIncrementReturnsFalse() {
 		assertFalse(isPostIncrement("++"));
 		assertFalse(isPostIncrement("+++"));
 		assertFalse(isPostIncrement("1++"));
@@ -150,7 +150,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenStartsWithDoubleMinusAndContainsValidVariable_thenIsPreDecrementReturnsTrue() {
+	void whenTokenStartsWithDoubleMinusAndContainsValidVariableName_thenIsPreDecrementReturnsTrue() {
 		assertTrue(isPreDecrement("--x"));
 		assertTrue(isPreDecrement("--a"));
 		assertTrue(isPreDecrement("--item"));
@@ -158,7 +158,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenStartsWithDoubleMinusButDoesNotContainValidVariable_thenIsPreDecrementReturnsFalse() {
+	void whenTokenStartsWithDoubleMinusButDoesNotContainValidVariableName_thenIsPreDecrementReturnsFalse() {
 		assertFalse(isPreDecrement("--"));
 		assertFalse(isPreDecrement("---"));
 		assertFalse(isPreDecrement("--1"));
@@ -173,7 +173,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenEndsWithDoubleMinusAndContainsValidVariable_thenIsPostDecrementReturnsTrue() {
+	void whenTokenEndsWithDoubleMinusAndContainsValidVariableName_thenIsPostDecrementReturnsTrue() {
 		assertTrue(isPostDecrement("x--"));
 		assertTrue(isPostDecrement("a--"));
 		assertTrue(isPostDecrement("item--"));
@@ -181,7 +181,7 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenTokenEndsWithDoubleMinusButDoesNotContainValidVariable_thenIsPostDecrementReturnsFalse() {
+	void whenTokenEndsWithDoubleMinusButDoesNotContainValidVariableName_thenIsPostDecrementReturnsFalse() {
 		assertFalse(isPostDecrement("--"));
 		assertFalse(isPostDecrement("---"));
 		assertFalse(isPostDecrement("1--"));
@@ -196,18 +196,20 @@ class ExpressionTokenizerTest {
 	}
 
 	@Test
-	void whenPreUnaryOperatorContainsValidVariable_thenGetVariableNameOfPreUnaryOperatorTokenReturnsVariableName() {
+	void whenPreUnaryOperatorContainsValidVariableName_thenGetVariableNameOfPreUnaryOperatorTokenReturnsVariableName() {
 		assertEquals("x", getVariableNameOfPreUnaryOperatorToken("++x"));
 		assertEquals("x", getVariableNameOfPreUnaryOperatorToken("--x"));
 		assertEquals("abc", getVariableNameOfPreUnaryOperatorToken("--abc"));
 		assertEquals("item", getVariableNameOfPreUnaryOperatorToken("++item"));
+		assertEquals("a1", getVariableNameOfPreUnaryOperatorToken("++a1"));
 	}
 
 	@Test
-	void whenPostUnaryOperatorContainsValidVariable_thenGetVariableNameOfPostUnaryOperatorTokenReturnsVariableName() {
+	void whenPostUnaryOperatorContainsValidVariableName_thenGetVariableNameOfPostUnaryOperatorTokenReturnsVariableName() {
 		assertEquals("x", getVariableNameOfPostUnaryOperatorToken("x++"));
 		assertEquals("x", getVariableNameOfPostUnaryOperatorToken("x--"));
 		assertEquals("abc", getVariableNameOfPostUnaryOperatorToken("abc--"));
 		assertEquals("item", getVariableNameOfPostUnaryOperatorToken("item++"));
+		assertEquals("a1", getVariableNameOfPostUnaryOperatorToken("a1++"));
 	}
 }

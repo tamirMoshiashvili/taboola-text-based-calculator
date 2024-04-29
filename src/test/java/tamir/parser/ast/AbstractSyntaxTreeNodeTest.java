@@ -8,12 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AbstractSyntaxTreeNodeTest {
 
+	private IntegerAstNode four;
+	private IntegerAstNode six;
 	private VariableAstNode variableX;
 	private VariableAstNode variableY;
 	private CalculatorContext context;
 
 	@BeforeEach
 	void setup() {
+		four = new IntegerAstNode(4);
+		six = new IntegerAstNode(6);
 		variableX = new VariableAstNode("x");
 		variableY = new VariableAstNode("y");
 		context = new CalculatorContext();
@@ -28,13 +32,13 @@ class AbstractSyntaxTreeNodeTest {
 
 	@Test
 	void whenAstHasCompositeOperationsOnIntegers_thenReturnValue() {
-		assertEquals(24, new MultiplicationAstNode(variableX, new MultiplicationAstNode(variableX, variableY)).interpret(context));
+		assertEquals(96, new MultiplicationAstNode(four, new MultiplicationAstNode(four, six)).interpret(context));
 	}
 
 	@Test
 	void whenAstContainsPreIncrementAndDecrementOnSameVariable_thenVariableValueStaysTheSame() {
-		int xValue = variableX.interpret(context);
+		int xValueBeforeChange = variableX.interpret(context);
 		new AdditionAstNode(new PreIncrementAstNode("x"), new PreDecrementAstNode("x"));
-		assertEquals(xValue, variableX.interpret(context));
+		assertEquals(xValueBeforeChange, variableX.interpret(context));
 	}
 }
