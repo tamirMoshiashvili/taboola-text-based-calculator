@@ -1,8 +1,10 @@
-package tamir.parser.ast;
+package tamir.parser.ast.operator.binary;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tamir.calculator.CalculatorContext;
+import tamir.parser.ast.IntegerAstNode;
+import tamir.parser.ast.VariableAstNode;
 
 import static org.junit.jupiter.api.Assertions.*;
 

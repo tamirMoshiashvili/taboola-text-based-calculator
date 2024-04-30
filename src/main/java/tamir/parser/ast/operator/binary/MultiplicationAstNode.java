@@ -1,7 +1,8 @@
-package tamir.parser.ast;
+package tamir.parser.ast.operator.binary;
 
 import lombok.EqualsAndHashCode;
 import tamir.calculator.CalculatorContext;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @EqualsAndHashCode(callSuper = true)
 public class MultiplicationAstNode extends BinaryOperatorAstNode {

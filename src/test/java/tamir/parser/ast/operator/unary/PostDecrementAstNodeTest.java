@@ -1,9 +1,10 @@
-package tamir.parser.ast;
+package tamir.parser.ast.operator.unary;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tamir.calculator.CalculatorContext;
 import tamir.exception.UnknownVariableException;
+import tamir.parser.ast.VariableAstNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

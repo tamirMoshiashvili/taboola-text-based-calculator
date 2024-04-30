@@ -1,9 +1,12 @@
-package tamir.parser.ast;
+package tamir.parser.ast.operator.unary;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tamir.calculator.CalculatorContext;
 import tamir.exception.UnknownVariableException;
+import tamir.parser.ast.VariableAstNode;
+import tamir.parser.ast.operator.binary.AdditionAstNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -50,7 +53,7 @@ class PreDecrementAstNodeTest {
 	@Test
 	void whenAstContainsMultipleInstancesOfVariableWithPreDecrement_thenValueBeingCalculatedByPreCalculatedValue() {
 		PreDecrementAstNode preDecrementY = new PreDecrementAstNode("y");
-		assertEquals(3, new AdditionAstNode(preDecrementY, preDecrementY).interpret(context));
+		Assertions.assertEquals(3, new AdditionAstNode(preDecrementY, preDecrementY).interpret(context));
 	}
 
 	@Test

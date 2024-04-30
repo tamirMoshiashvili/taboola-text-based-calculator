@@ -3,6 +3,10 @@ package tamir.parser.ast;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tamir.calculator.CalculatorContext;
+import tamir.parser.ast.operator.binary.AdditionAstNode;
+import tamir.parser.ast.operator.binary.MultiplicationAstNode;
+import tamir.parser.ast.operator.unary.PreDecrementAstNode;
+import tamir.parser.ast.operator.unary.PreIncrementAstNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

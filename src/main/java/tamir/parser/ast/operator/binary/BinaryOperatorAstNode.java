@@ -1,7 +1,8 @@
-package tamir.parser.ast;
+package tamir.parser.ast.operator.binary;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @AllArgsConstructor
 @EqualsAndHashCode

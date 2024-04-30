@@ -1,8 +1,9 @@
-package tamir.parser.ast;
+package tamir.parser.ast.operator.unary;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import tamir.calculator.CalculatorContext;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @AllArgsConstructor
 @EqualsAndHashCode

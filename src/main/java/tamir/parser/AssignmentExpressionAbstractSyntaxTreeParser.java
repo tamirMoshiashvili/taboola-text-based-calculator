@@ -1,8 +1,18 @@
 package tamir.parser;
 
 import tamir.exception.*;
-import tamir.parser.ast.*;
+import tamir.parser.ast.AbstractSyntaxTreeNode;
+import tamir.parser.ast.IntegerAstNode;
+import tamir.parser.ast.VariableAstNode;
 import tamir.parser.ast.assignment.*;
+import tamir.parser.ast.operator.binary.AdditionAstNode;
+import tamir.parser.ast.operator.binary.DivisionAstNode;
+import tamir.parser.ast.operator.binary.MultiplicationAstNode;
+import tamir.parser.ast.operator.binary.SubtractionAstNode;
+import tamir.parser.ast.operator.unary.PostDecrementAstNode;
+import tamir.parser.ast.operator.unary.PostIncrementAstNode;
+import tamir.parser.ast.operator.unary.PreDecrementAstNode;
+import tamir.parser.ast.operator.unary.PreIncrementAstNode;
 import tamir.parser.operator.AssignmentOperator;
 import tamir.parser.operator.BinaryOperator;
 
