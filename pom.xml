@@ -6,8 +6,8 @@
 
     <groupId>tamir</groupId>
     <artifactId>text-based-calculator</artifactId>
-    <version>0.0.12</version>
-
+    <version>1.0.0</version>
+    
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
