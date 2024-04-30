@@ -1,4 +1,4 @@
-package tamir.parser.assignment;
+package tamir.parser.ast.assignment;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

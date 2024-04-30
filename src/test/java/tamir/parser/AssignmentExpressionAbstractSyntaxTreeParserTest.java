@@ -2,11 +2,11 @@ package tamir.parser;
 
 import org.junit.jupiter.api.Test;
 import tamir.exception.*;
-import tamir.parser.assignment.*;
 import tamir.parser.ast.AdditionAstNode;
 import tamir.parser.ast.IntegerAstNode;
 import tamir.parser.ast.MultiplicationAstNode;
 import tamir.parser.ast.SubtractionAstNode;
+import tamir.parser.ast.assignment.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

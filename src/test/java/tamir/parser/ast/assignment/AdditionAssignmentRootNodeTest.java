@@ -1,4 +1,4 @@
-package tamir.parser.assignment;
+package tamir.parser.ast.assignment;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

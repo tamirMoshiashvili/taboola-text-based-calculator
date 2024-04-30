@@ -1,4 +1,4 @@
-package tamir.parser.assignment;
+package tamir.parser.ast.assignment;
 
 import lombok.EqualsAndHashCode;
 import tamir.calculator.CalculatorContext;
