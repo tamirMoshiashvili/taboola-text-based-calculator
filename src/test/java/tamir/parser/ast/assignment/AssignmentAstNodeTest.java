@@ -9,7 +9,7 @@ import tamir.parser.ast.VariableAstNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class AssignmentRootNodeTest {
+class AssignmentAstNodeTest {
 
 	private IntegerAstNode one;
 	private VariableAstNode variableX;
@@ -27,21 +27,21 @@ class AssignmentRootNodeTest {
 	void whenAssigningNewVariable_thenVariableIsBeingAddedToTheContext() {
 		CalculatorContext context = new CalculatorContext();
 		assertTrue(context.getVariableToValue().isEmpty());
-		new AssignmentRootNode("x", one).interpret(context);
+		new AssignmentAstNode("x", one).interpret(context);
 		assertEquals(one.interpret(context), variableX.interpret(context));
 	}
 
 	@Test
 	void whenAssigningExistingVariable_thenVariableValueIsBeingUpdatedInTheContext() {
 		assertTrue(context.getVariableToValue().containsKey("x"));
-		new AssignmentRootNode("x", one).interpret(context);
+		new AssignmentAstNode("x", one).interpret(context);
 		assertEquals(one.interpret(context), variableX.interpret(context));
 	}
 
 	@Test
 	void whenAssigningVariable_thenInterpretDoesNotChangeOtherVariablesInTheContext() {
 		int xValueBeforeOperation = variableX.interpret(context);
-		new AssignmentRootNode("new", one).interpret(context);
+		new AssignmentAstNode("new", one).interpret(context);
 		assertEquals(xValueBeforeOperation, variableX.interpret(context));
 	}
 }

@@ -7,7 +7,7 @@ import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @AllArgsConstructor
 @EqualsAndHashCode
-public class AssignmentRootNode implements AbstractSyntaxTreeNode<Void> {
+public class AssignmentAstNode implements AbstractSyntaxTreeNode<Void> {
 
 	protected final String assignedVariableName;
 	protected final AbstractSyntaxTreeNode<Integer> valueExpression;
