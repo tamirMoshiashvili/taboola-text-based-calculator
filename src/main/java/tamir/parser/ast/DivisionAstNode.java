@@ -6,12 +6,12 @@ import tamir.calculator.CalculatorContext;
 @EqualsAndHashCode(callSuper = true)
 public class DivisionAstNode extends BinaryOperatorAstNode {
 
-	public DivisionAstNode(AbstractSyntaxTreeNode left, AbstractSyntaxTreeNode right) {
+	public DivisionAstNode(AbstractSyntaxTreeNode<Integer> left, AbstractSyntaxTreeNode<Integer> right) {
 		super(left, right);
 	}
 
 	@Override
-	public int interpret(CalculatorContext context) {
+	public Integer interpret(CalculatorContext context) {
 		return left.interpret(context) / right.interpret(context);
 	}
 }

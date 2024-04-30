@@ -6,7 +6,7 @@ import java.util.Scanner;
 import static java.util.stream.Collectors.joining;
 import static tamir.calculator.TextBasedCalculator.runTextBasedCalculator;
 
-public class TextBasedCalculatorApplication {
+class TextBasedCalculatorApplication {
 
 	public static void main(String[] args) {
 		printInstructions();

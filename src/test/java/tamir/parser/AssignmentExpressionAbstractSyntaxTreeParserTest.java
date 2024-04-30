@@ -10,108 +10,108 @@ import tamir.parser.ast.SubtractionAstNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static tamir.parser.AbstractSyntaxTreeParser.parseExpressionIntoAbstractSyntaxTree;
+import static tamir.parser.AssignmentExpressionAbstractSyntaxTreeParser.parseAssignmentExpressionIntoAbstractSyntaxTree;
 
-class AbstractSyntaxTreeParserTest {
+class AssignmentExpressionAbstractSyntaxTreeParserTest {
 
 	@Test
 	void whenExpressionIsBlank_thenParseExpressionThrowsBlankExpressionException() {
-		assertThrows(BlankExpressionException.class, () -> parseExpressionIntoAbstractSyntaxTree(null));
-		assertThrows(BlankExpressionException.class, () -> parseExpressionIntoAbstractSyntaxTree(""));
-		assertThrows(BlankExpressionException.class, () -> parseExpressionIntoAbstractSyntaxTree(" "));
-		assertThrows(BlankExpressionException.class, () -> parseExpressionIntoAbstractSyntaxTree("  "));
-		assertThrows(BlankExpressionException.class, () -> parseExpressionIntoAbstractSyntaxTree("\t"));
+		assertThrows(BlankExpressionException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree(null));
+		assertThrows(BlankExpressionException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree(""));
+		assertThrows(BlankExpressionException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree(" "));
+		assertThrows(BlankExpressionException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("  "));
+		assertThrows(BlankExpressionException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("\t"));
 	}
 
 	@Test
 	void whenExpressionContainsLessThanThreeTokens_thenParseExpressionThrowsInvalidNumTokensInAssignmentExpressionException() {
 		assertThrows(InvalidNumTokensInAssignmentExpressionException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x"));
 		assertThrows(InvalidNumTokensInAssignmentExpressionException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x ="));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x ="));
 		assertThrows(InvalidNumTokensInAssignmentExpressionException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("item += "));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("item += "));
 		assertThrows(InvalidNumTokensInAssignmentExpressionException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("1 2"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("1 2"));
 	}
 
 	@Test
 	void whenExpressionIsValidAssignmentExpression_thenParseExpressionReturnsAssignmentRootNode() {
 		AssignmentRootNode expectedRootNode = new AssignmentRootNode("x", new IntegerAstNode(1));
-		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x = 1"));
+		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1"));
 	}
 
 	@Test
 	void whenExpressionIsValidAdditionAssignmentExpression_thenParseExpressionReturnsAdditionAssignmentRootNode() {
 		AdditionAssignmentRootNode expectedRootNode = new AdditionAssignmentRootNode("x", new IntegerAstNode(1));
-		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x += 1"));
+		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x += 1"));
 	}
 
 	@Test
 	void whenExpressionIsValidSubtractionAssignmentExpression_thenParseExpressionReturnsSubtractionAssignmentRootNode() {
 		SubtractionAssignmentRootNode expectedRootNode = new SubtractionAssignmentRootNode("x", new IntegerAstNode(1));
-		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x -= 1"));
+		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x -= 1"));
 	}
 
 	@Test
 	void whenExpressionIsValidMultiplicationAssignmentExpression_thenParseExpressionReturnsMultiplicationAssignmentRootNode() {
 		MultiplicationAssignmentRootNode expectedRootNode = new MultiplicationAssignmentRootNode("x", new IntegerAstNode(1));
-		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x *= 1"));
+		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x *= 1"));
 	}
 
 	@Test
 	void whenExpressionIsValidDivisionAssignmentExpression_thenParseExpressionReturnsDivisionAssignmentRootNode() {
 		DivisionAssignmentRootNode expectedRootNode = new DivisionAssignmentRootNode("x", new IntegerAstNode(1));
-		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x /= 1"));
+		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x /= 1"));
 	}
 
 	@Test
 	void whenExpressionDoesNotStartsWithVariableToken_thenParseExpressionThrowsMissingAssignedVariableTokenException() {
-		assertThrows(MissingAssignedVariableTokenException.class, () -> parseExpressionIntoAbstractSyntaxTree("1 = 2"));
-		assertThrows(MissingAssignedVariableTokenException.class, () -> parseExpressionIntoAbstractSyntaxTree("+ = 2"));
-		assertThrows(MissingAssignedVariableTokenException.class, () -> parseExpressionIntoAbstractSyntaxTree("* /= +"));
+		assertThrows(MissingAssignedVariableTokenException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("1 = 2"));
+		assertThrows(MissingAssignedVariableTokenException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("+ = 2"));
+		assertThrows(MissingAssignedVariableTokenException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("* /= +"));
 	}
 
 	@Test
 	void whenExpressionDoesNotContainAssignmentOperator_thenParseExpressionThrowsInvalidAssignmentOperatorException() {
-		assertThrows(InvalidAssignmentOperatorException.class, () -> parseExpressionIntoAbstractSyntaxTree("x + 1"));
-		assertThrows(InvalidAssignmentOperatorException.class, () -> parseExpressionIntoAbstractSyntaxTree("x == 2"));
-		assertThrows(InvalidAssignmentOperatorException.class, () -> parseExpressionIntoAbstractSyntaxTree("item - 12"));
-		assertThrows(InvalidAssignmentOperatorException.class, () -> parseExpressionIntoAbstractSyntaxTree("item item2 1"));
+		assertThrows(InvalidAssignmentOperatorException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("x + 1"));
+		assertThrows(InvalidAssignmentOperatorException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("x == 2"));
+		assertThrows(InvalidAssignmentOperatorException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("item - 12"));
+		assertThrows(InvalidAssignmentOperatorException.class, () -> parseAssignmentExpressionIntoAbstractSyntaxTree("item item2 1"));
 	}
 
 	@Test
 	void whenExpressionContainsMoreThanOneAssignment_thenParseExpressionThrowsInvalidAbstractSyntaxTreeStructureException() {
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x = = 1"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x = = 1"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x += 1 = y = 50"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x += 1 = y = 50"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x /= 3 *= 2"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x /= 3 *= 2"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x = y = z = w = h = T"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x = y = z = w = h = T"));
 	}
 
 	@Test
 	void whenOperatorIsMissingAnOperand_thenParseExpressionThrowsInvalidAbstractSyntaxTreeStructureException() {
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x = *"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x = *"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x = 1 +"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1 +"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x = 1 * 2 / "));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1 * 2 / "));
 	}
 
 	@Test
 	void whenValueExpressionContainsMultipleOperandsWithoutOperator_thenParseExpressionThrowsInvalidAbstractSyntaxTreeStructureException() {
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("item += x y"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("item += x y"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x = 1 t 2"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1 t 2"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x = a 1 t"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x = a 1 t"));
 		assertThrows(InvalidAbstractSyntaxTreeStructureException.class,
-				() -> parseExpressionIntoAbstractSyntaxTree("x = 1 1 1"));
+				() -> parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1 1 1"));
 	}
 
 	@Test
@@ -121,7 +121,7 @@ class AbstractSyntaxTreeParserTest {
 		AdditionAstNode valueExpression = new AdditionAstNode(left, right);
 		AssignmentRootNode expectedRootNode = new AssignmentRootNode("x", valueExpression);
 
-		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x = 1 + 2 * 3"));
+		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1 + 2 * 3"));
 	}
 
 	@Test
@@ -131,6 +131,6 @@ class AbstractSyntaxTreeParserTest {
 		SubtractionAstNode valueExpression = new SubtractionAstNode(left, right);
 		AssignmentRootNode expectedRootNode = new AssignmentRootNode("x", valueExpression);
 
-		assertEquals(expectedRootNode, parseExpressionIntoAbstractSyntaxTree("x = 1 - 2 - 3"));
+		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1 - 2 - 3"));
 	}
 }

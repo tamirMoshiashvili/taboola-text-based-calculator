@@ -7,12 +7,13 @@ import tamir.parser.ast.AbstractSyntaxTreeNode;
 @EqualsAndHashCode(callSuper = true)
 public class SubtractionAssignmentRootNode extends AssignmentRootNode {
 
-	public SubtractionAssignmentRootNode(String assignedVariableName, AbstractSyntaxTreeNode valueExpression) {
+	public SubtractionAssignmentRootNode(String assignedVariableName, AbstractSyntaxTreeNode<Integer> valueExpression) {
 		super(assignedVariableName, valueExpression);
 	}
 
 	@Override
-	public void execute(CalculatorContext context) {
+	public Void interpret(CalculatorContext context) {
 		context.put(assignedVariableName, context.get(assignedVariableName) - valueExpression.interpret(context));
+		return null;
 	}
 }

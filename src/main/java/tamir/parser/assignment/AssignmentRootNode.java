@@ -7,12 +7,13 @@ import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @AllArgsConstructor
 @EqualsAndHashCode
-public class AssignmentRootNode {
+public class AssignmentRootNode implements AbstractSyntaxTreeNode<Void> {
 
 	protected final String assignedVariableName;
-	protected final AbstractSyntaxTreeNode valueExpression;
+	protected final AbstractSyntaxTreeNode<Integer> valueExpression;
 
-	public void execute(CalculatorContext context) {
+	public Void interpret(CalculatorContext context) {
 		context.put(assignedVariableName, valueExpression.interpret(context));
+		return null;
 	}
 }

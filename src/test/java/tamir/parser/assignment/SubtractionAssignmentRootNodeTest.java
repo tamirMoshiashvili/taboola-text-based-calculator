@@ -25,26 +25,26 @@ class SubtractionAssignmentRootNodeTest {
 
 	@Test
 	void whenSubtractionAssigningExistingVariable_thenVariableIsBeingUpdatedInTheContext() {
-		new SubtractionAssignmentRootNode("x", one).execute(context);
+		new SubtractionAssignmentRootNode("x", one).interpret(context);
 		assertEquals(2, variableX.interpret(context));
 	}
 
 	@Test
 	void whenSubtractionAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new SubtractionAssignmentRootNode("unknown", one).execute(context));
+				() -> new SubtractionAssignmentRootNode("unknown", one).interpret(context));
 	}
 
 	@Test
 	void whenSubtractionAssigningZero_thenVariableValueDoesNotChange() {
 		int xValueBeforeChange = variableX.interpret(context);
-		new SubtractionAssignmentRootNode("x", new IntegerAstNode(0)).execute(context);
+		new SubtractionAssignmentRootNode("x", new IntegerAstNode(0)).interpret(context);
 		assertEquals(xValueBeforeChange, variableX.interpret(context));
 	}
 
 	@Test
 	void whenSubtractionAssigningByVariablesValue_thenVariableEqualsZero() {
-		new SubtractionAssignmentRootNode("x", variableX).execute(context);
+		new SubtractionAssignmentRootNode("x", variableX).interpret(context);
 		assertEquals(0, variableX.interpret(context));
 	}
 
@@ -52,7 +52,7 @@ class SubtractionAssignmentRootNodeTest {
 	void whenSubtractionAssigningByNegativeInteger_thenVariableValueHasBeenIncreased() {
 		int xValueBeforeChange = variableX.interpret(context);
 		IntegerAstNode negativeInteger = new IntegerAstNode(-1);
-		new SubtractionAssignmentRootNode("x", negativeInteger).execute(context);
+		new SubtractionAssignmentRootNode("x", negativeInteger).interpret(context);
 		assertTrue(variableX.interpret(context) > xValueBeforeChange);
 	}
 }

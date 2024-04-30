@@ -6,12 +6,12 @@ import tamir.calculator.CalculatorContext;
 @EqualsAndHashCode(callSuper = true)
 public class MultiplicationAstNode extends BinaryOperatorAstNode {
 
-	public MultiplicationAstNode(AbstractSyntaxTreeNode left, AbstractSyntaxTreeNode right) {
+	public MultiplicationAstNode(AbstractSyntaxTreeNode<Integer> left, AbstractSyntaxTreeNode<Integer> right) {
 		super(left, right);
 	}
 
 	@Override
-	public int interpret(CalculatorContext context) {
+	public Integer interpret(CalculatorContext context) {
 		return left.interpret(context) * right.interpret(context);
 	}
 }

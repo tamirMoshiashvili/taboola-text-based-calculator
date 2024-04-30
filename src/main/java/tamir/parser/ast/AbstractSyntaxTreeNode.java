@@ -2,7 +2,7 @@ package tamir.parser.ast;
 
 import tamir.calculator.CalculatorContext;
 
-public interface AbstractSyntaxTreeNode {
+public interface AbstractSyntaxTreeNode<T> {
 
-	int interpret(CalculatorContext context);
+	T interpret(CalculatorContext context);
 }

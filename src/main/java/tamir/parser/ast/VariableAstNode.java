@@ -6,12 +6,12 @@ import tamir.calculator.CalculatorContext;
 
 @AllArgsConstructor
 @EqualsAndHashCode
-public class VariableAstNode implements AbstractSyntaxTreeNode {
+public class VariableAstNode implements AbstractSyntaxTreeNode<Integer> {
 
 	private final String variableName;
 
 	@Override
-	public int interpret(CalculatorContext context) {
+	public Integer interpret(CalculatorContext context) {
 		return context.get(variableName);
 	}
 }

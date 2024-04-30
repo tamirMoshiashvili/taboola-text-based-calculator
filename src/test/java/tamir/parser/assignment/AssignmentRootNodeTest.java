@@ -27,21 +27,21 @@ class AssignmentRootNodeTest {
 	void whenAssigningNewVariable_thenVariableIsBeingAddedToTheContext() {
 		CalculatorContext context = new CalculatorContext();
 		assertTrue(context.getVariableToValue().isEmpty());
-		new AssignmentRootNode("x", one).execute(context);
+		new AssignmentRootNode("x", one).interpret(context);
 		assertEquals(one.interpret(context), variableX.interpret(context));
 	}
 
 	@Test
 	void whenAssigningExistingVariable_thenVariableValueIsBeingUpdatedInTheContext() {
 		assertTrue(context.getVariableToValue().containsKey("x"));
-		new AssignmentRootNode("x", one).execute(context);
+		new AssignmentRootNode("x", one).interpret(context);
 		assertEquals(one.interpret(context), variableX.interpret(context));
 	}
 
 	@Test
 	void whenAssigningVariable_thenInterpretDoesNotChangeOtherVariablesInTheContext() {
 		int xValueBeforeOperation = variableX.interpret(context);
-		new AssignmentRootNode("new", one).execute(context);
+		new AssignmentRootNode("new", one).interpret(context);
 		assertEquals(xValueBeforeOperation, variableX.interpret(context));
 	}
 }

@@ -25,20 +25,20 @@ class AdditionAssignmentRootNodeTest {
 
 	@Test
 	void whenAdditionAssigningExistingVariable_thenVariableValueIsBeingUpdatedInTheContext() {
-		new AdditionAssignmentRootNode("x", one).execute(context);
+		new AdditionAssignmentRootNode("x", one).interpret(context);
 		assertEquals(4, variableX.interpret(context));
 	}
 
 	@Test
 	void whenAdditionAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new AdditionAssignmentRootNode("unknown", one).execute(context));
+				() -> new AdditionAssignmentRootNode("unknown", one).interpret(context));
 	}
 
 	@Test
 	void whenAdditionAssigningZeroToExistingVariable_thenVariableValueDoesNotChange() {
 		int xValueBeforeChange = variableX.interpret(context);
-		new AdditionAssignmentRootNode("x", new IntegerAstNode(0)).execute(context);
+		new AdditionAssignmentRootNode("x", new IntegerAstNode(0)).interpret(context);
 		assertEquals(xValueBeforeChange, variableX.interpret(context));
 	}
 
@@ -46,7 +46,7 @@ class AdditionAssignmentRootNodeTest {
 	void whenAdditionAssigningNegativeInteger_thenVariableValueHasBeenDecreased() {
 		int xValueBeforeChange = variableX.interpret(context);
 		IntegerAstNode negativeInteger = new IntegerAstNode(-1);
-		new AdditionAssignmentRootNode("x", negativeInteger).execute(context);
+		new AdditionAssignmentRootNode("x", negativeInteger).interpret(context);
 		assertTrue(variableX.interpret(context) < xValueBeforeChange);
 	}
 }

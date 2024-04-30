@@ -6,12 +6,12 @@ import tamir.calculator.CalculatorContext;
 
 @AllArgsConstructor
 @EqualsAndHashCode
-public class IntegerAstNode implements AbstractSyntaxTreeNode {
+public class IntegerAstNode implements AbstractSyntaxTreeNode<Integer> {
 
 	private final int value;
 
 	@Override
-	public int interpret(CalculatorContext context) {
+	public Integer interpret(CalculatorContext context) {
 		return value;
 	}
 }

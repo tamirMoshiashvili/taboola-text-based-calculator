@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 
 @AllArgsConstructor
 @EqualsAndHashCode
-public abstract class BinaryOperatorAstNode implements AbstractSyntaxTreeNode {
+abstract class BinaryOperatorAstNode implements AbstractSyntaxTreeNode<Integer> {
 
-	protected final AbstractSyntaxTreeNode left;
-	protected final AbstractSyntaxTreeNode right;
+	protected final AbstractSyntaxTreeNode<Integer> left;
+	protected final AbstractSyntaxTreeNode<Integer> right;
 }

@@ -13,14 +13,14 @@ import static java.lang.Integer.parseInt;
 import static tamir.parser.ExpressionTokenizer.*;
 import static tamir.parser.operator.BinaryOperator.isBinaryOperator;
 
-public class AbstractSyntaxTreeParser {
+public class AssignmentExpressionAbstractSyntaxTreeParser {
 
 	private static final int VARIABLE_TOKEN_INDEX = 0;
 	private static final int ASSIGNMENT_TOKEN_INDEX = 1;
 	private static final long VARIABLE_AND_ASSIGNMENT_TOKENS_SIZE = 2;
 	private static final int MIN_NUM_TOKENS_OF_ASSIGNMENT_EXPRESSION = 3;
 
-	public static AssignmentRootNode parseExpressionIntoAbstractSyntaxTree(String expression) {
+	public static AssignmentRootNode parseAssignmentExpressionIntoAbstractSyntaxTree(String expression) {
 		validateExpressionIsNotBlank(expression);
 		List<String> tokens = splitIntoTokens(expression);
 		validateNumberOfTokens(tokens);
@@ -53,7 +53,7 @@ public class AbstractSyntaxTreeParser {
 		private String assignedVariableName;
 		private AssignmentOperator assignmentOperator;
 		private final Stack<BinaryOperator> binaryOperators;
-		private final Stack<AbstractSyntaxTreeNode> expressions;
+		private final Stack<AbstractSyntaxTreeNode<Integer>> expressions;
 
 		AbstractSyntaxTreeBuilder() {
 			this.binaryOperators = new Stack<>();
@@ -89,7 +89,7 @@ public class AbstractSyntaxTreeParser {
 		}
 
 		AssignmentRootNode getAbstractSyntaxTreeAssignmentRootNode() {
-			AbstractSyntaxTreeNode valueExpression = getValueExpression();
+			AbstractSyntaxTreeNode<Integer> valueExpression = getValueExpression();
 
 			switch (assignmentOperator) {
 				case ASSIGNMENT:
@@ -117,7 +117,7 @@ public class AbstractSyntaxTreeParser {
 			return binaryOperator.getPrecedence() <= binaryOperators.peek().getPrecedence();
 		}
 
-		private AbstractSyntaxTreeNode getValueExpression() {
+		private AbstractSyntaxTreeNode<Integer> getValueExpression() {
 			createExpressions();
 			validateFinalValueExpressionIsSingleNode();
 			return expressions.pop();
@@ -134,10 +134,10 @@ public class AbstractSyntaxTreeParser {
 				throw new InvalidAbstractSyntaxTreeStructureException(binaryOperators, expressions);
 		}
 
-		private AbstractSyntaxTreeNode popBinaryOperatorAstNode() {
+		private AbstractSyntaxTreeNode<Integer> popBinaryOperatorAstNode() {
 			validateBinaryOperatorHasTwoExpressionsToPop();
-			AbstractSyntaxTreeNode rightExpression = expressions.pop();
-			AbstractSyntaxTreeNode leftExpression = expressions.pop();
+			AbstractSyntaxTreeNode<Integer> rightExpression = expressions.pop();
+			AbstractSyntaxTreeNode<Integer> leftExpression = expressions.pop();
 
 			BinaryOperator topBinaryOperator = binaryOperators.pop();
 			switch (topBinaryOperator) {

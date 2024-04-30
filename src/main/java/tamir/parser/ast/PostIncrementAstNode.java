@@ -6,12 +6,12 @@ import tamir.calculator.CalculatorContext;
 
 @AllArgsConstructor
 @EqualsAndHashCode
-public class PostIncrementAstNode implements AbstractSyntaxTreeNode {
+public class PostIncrementAstNode implements AbstractSyntaxTreeNode<Integer> {
 
 	private final String variableName;
 
 	@Override
-	public int interpret(CalculatorContext context) {
+	public Integer interpret(CalculatorContext context) {
 		int postIncrementedValue = context.get(variableName);
 		context.put(variableName, postIncrementedValue + 1);
 

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IntegerAstNodeTest {
 
-	private CalculatorContext context = new CalculatorContext();
+	private final CalculatorContext context = new CalculatorContext();
 
 	@Test
 	void testInterpretOfIntegerReturnsOriginalValue() {
