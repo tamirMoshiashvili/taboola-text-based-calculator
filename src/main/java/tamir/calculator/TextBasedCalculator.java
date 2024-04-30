@@ -1,6 +1,6 @@
 package tamir.calculator;
 
-import tamir.parser.ast.assignment.AssignmentRootNode;
+import tamir.parser.ast.assignment.AssignmentAstNode;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -21,8 +21,8 @@ public class TextBasedCalculator {
 
 	private static void processExpression(CalculatorContext context, String expression) {
 		try {
-			AssignmentRootNode assignmentRootNode = parseAssignmentExpressionIntoAbstractSyntaxTree(expression);
-			assignmentRootNode.interpret(context);
+			AssignmentAstNode assignmentAstNode = parseAssignmentExpressionIntoAbstractSyntaxTree(expression);
+			assignmentAstNode.interpret(context);
 		} catch (Exception e) {
 			System.out.println("Failed processing expression: " + e.getMessage());
 		}

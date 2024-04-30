@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static tamir.calculator.TextBasedCalculator.runTextBasedCalculator;
 
 class TextBasedCalculatorTest {
@@ -44,5 +43,11 @@ class TextBasedCalculatorTest {
 	@Test
 	void whenExpressionIsInvalid_thenNoException() {
 		assertDoesNotThrow(() -> runTextBasedCalculator(new Scanner("x = unknown\n\n")));
+	}
+
+	@Test
+	void whenNoExpressionHasBeenEntered_thenVariablesAreEmpty() {
+		Map<String, Integer> variableToValues = runTextBasedCalculator(new Scanner("\n"));
+		assertTrue(variableToValues.isEmpty());
 	}
 }

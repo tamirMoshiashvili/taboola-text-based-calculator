@@ -5,15 +5,15 @@ import tamir.calculator.CalculatorContext;
 import tamir.parser.ast.AbstractSyntaxTreeNode;
 
 @EqualsAndHashCode(callSuper = true)
-public class DivisionAssignmentRootNode extends AssignmentRootNode {
+public class AdditionAssignmentAstNode extends AssignmentAstNode {
 
-	public DivisionAssignmentRootNode(String assignedVariableName, AbstractSyntaxTreeNode<Integer> valueExpression) {
+	public AdditionAssignmentAstNode(String assignedVariableName, AbstractSyntaxTreeNode<Integer> valueExpression) {
 		super(assignedVariableName, valueExpression);
 	}
 
 	@Override
 	public Void interpret(CalculatorContext context) {
-		context.put(assignedVariableName, context.get(assignedVariableName) / valueExpression.interpret(context));
+		context.put(assignedVariableName, context.get(assignedVariableName) + valueExpression.interpret(context));
 		return null;
 	}
 }

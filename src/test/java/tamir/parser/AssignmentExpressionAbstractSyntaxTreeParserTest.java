@@ -37,31 +37,31 @@ class AssignmentExpressionAbstractSyntaxTreeParserTest {
 
 	@Test
 	void whenExpressionIsValidAssignmentExpression_thenParseExpressionReturnsAssignmentRootNode() {
-		AssignmentRootNode expectedRootNode = new AssignmentRootNode("x", new IntegerAstNode(1));
+		AssignmentAstNode expectedRootNode = new AssignmentAstNode("x", new IntegerAstNode(1));
 		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1"));
 	}
 
 	@Test
 	void whenExpressionIsValidAdditionAssignmentExpression_thenParseExpressionReturnsAdditionAssignmentRootNode() {
-		AdditionAssignmentRootNode expectedRootNode = new AdditionAssignmentRootNode("x", new IntegerAstNode(1));
+		AdditionAssignmentAstNode expectedRootNode = new AdditionAssignmentAstNode("x", new IntegerAstNode(1));
 		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x += 1"));
 	}
 
 	@Test
 	void whenExpressionIsValidSubtractionAssignmentExpression_thenParseExpressionReturnsSubtractionAssignmentRootNode() {
-		SubtractionAssignmentRootNode expectedRootNode = new SubtractionAssignmentRootNode("x", new IntegerAstNode(1));
+		SubtractionAssignmentAstNode expectedRootNode = new SubtractionAssignmentAstNode("x", new IntegerAstNode(1));
 		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x -= 1"));
 	}
 
 	@Test
 	void whenExpressionIsValidMultiplicationAssignmentExpression_thenParseExpressionReturnsMultiplicationAssignmentRootNode() {
-		MultiplicationAssignmentRootNode expectedRootNode = new MultiplicationAssignmentRootNode("x", new IntegerAstNode(1));
+		MultiplicationAssignmentAstNode expectedRootNode = new MultiplicationAssignmentAstNode("x", new IntegerAstNode(1));
 		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x *= 1"));
 	}
 
 	@Test
 	void whenExpressionIsValidDivisionAssignmentExpression_thenParseExpressionReturnsDivisionAssignmentRootNode() {
-		DivisionAssignmentRootNode expectedRootNode = new DivisionAssignmentRootNode("x", new IntegerAstNode(1));
+		DivisionAssignmentAstNode expectedRootNode = new DivisionAssignmentAstNode("x", new IntegerAstNode(1));
 		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x /= 1"));
 	}
 
@@ -119,7 +119,7 @@ class AssignmentExpressionAbstractSyntaxTreeParserTest {
 		IntegerAstNode left = new IntegerAstNode(1);
 		MultiplicationAstNode right = new MultiplicationAstNode(new IntegerAstNode(2), new IntegerAstNode(3));
 		AdditionAstNode valueExpression = new AdditionAstNode(left, right);
-		AssignmentRootNode expectedRootNode = new AssignmentRootNode("x", valueExpression);
+		AssignmentAstNode expectedRootNode = new AssignmentAstNode("x", valueExpression);
 
 		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1 + 2 * 3"));
 	}
@@ -129,7 +129,7 @@ class AssignmentExpressionAbstractSyntaxTreeParserTest {
 		SubtractionAstNode left = new SubtractionAstNode(new IntegerAstNode(1), new IntegerAstNode(2));
 		IntegerAstNode right = new IntegerAstNode(3);
 		SubtractionAstNode valueExpression = new SubtractionAstNode(left, right);
-		AssignmentRootNode expectedRootNode = new AssignmentRootNode("x", valueExpression);
+		AssignmentAstNode expectedRootNode = new AssignmentAstNode("x", valueExpression);
 
 		assertEquals(expectedRootNode, parseAssignmentExpressionIntoAbstractSyntaxTree("x = 1 - 2 - 3"));
 	}

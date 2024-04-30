@@ -9,7 +9,7 @@ import tamir.parser.ast.VariableAstNode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AdditionAssignmentRootNodeTest {
+class AdditionAssignmentAstNodeTest {
 
 	private IntegerAstNode one;
 	private VariableAstNode variableX;
@@ -25,20 +25,20 @@ class AdditionAssignmentRootNodeTest {
 
 	@Test
 	void whenAdditionAssigningExistingVariable_thenVariableValueIsBeingUpdatedInTheContext() {
-		new AdditionAssignmentRootNode("x", one).interpret(context);
+		new AdditionAssignmentAstNode("x", one).interpret(context);
 		assertEquals(4, variableX.interpret(context));
 	}
 
 	@Test
 	void whenAdditionAssigningOfUnknownVariable_thenInterpretThrowsUnknownVariableException() {
 		assertThrows(UnknownVariableException.class,
-				() -> new AdditionAssignmentRootNode("unknown", one).interpret(context));
+				() -> new AdditionAssignmentAstNode("unknown", one).interpret(context));
 	}
 
 	@Test
 	void whenAdditionAssigningZeroToExistingVariable_thenVariableValueDoesNotChange() {
 		int xValueBeforeChange = variableX.interpret(context);
-		new AdditionAssignmentRootNode("x", new IntegerAstNode(0)).interpret(context);
+		new AdditionAssignmentAstNode("x", new IntegerAstNode(0)).interpret(context);
 		assertEquals(xValueBeforeChange, variableX.interpret(context));
 	}
 
@@ -46,7 +46,7 @@ class AdditionAssignmentRootNodeTest {
 	void whenAdditionAssigningNegativeInteger_thenVariableValueHasBeenDecreased() {
 		int xValueBeforeChange = variableX.interpret(context);
 		IntegerAstNode negativeInteger = new IntegerAstNode(-1);
-		new AdditionAssignmentRootNode("x", negativeInteger).interpret(context);
+		new AdditionAssignmentAstNode("x", negativeInteger).interpret(context);
 		assertTrue(variableX.interpret(context) < xValueBeforeChange);
 	}
 }
